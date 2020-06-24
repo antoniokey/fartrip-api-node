@@ -1,14 +1,14 @@
 import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize(process.env.DB_NAME || '', process.env.DB_USERNAME || '', process.env.DB_PASSWORD || '', {
-  port: parseInt(process.env.DB_PORT || '0'),
+  port: parseInt(process.env.DB_PORT || '1'),
   dialect: 'mysql',
   pool: {
-    max: parseInt(process.env.DB_POOL_MAX || ''),
-    min: parseInt(process.env.DB_POOL_MIN  || ''),
-    idle: parseInt(process.env.DB_IDLE  || ''),
-    acquire: parseInt(process.env.DB_ACQUIRE  || ''),
-    evict: parseInt(process.env.DB_POOL_EVICT  || '')
+    max: parseInt(process.env.DB_POOL_MAX || '1'),
+    min: parseInt(process.env.DB_POOL_MIN  || '1'),
+    idle: parseInt(process.env.DB_IDLE  || '1'),
+    acquire: parseInt(process.env.DB_ACQUIRE  || '1'),
+    evict: parseInt(process.env.DB_POOL_EVICT  || '1')
   }
 });
 

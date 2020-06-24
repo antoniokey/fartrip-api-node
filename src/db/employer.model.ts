@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize/types';
+import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
 import Account from './account.model';
 import Comment from './comment.model';
