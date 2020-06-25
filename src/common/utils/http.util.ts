@@ -6,4 +6,4 @@ export const httpSuccess = (res: Response, data: any) => res.status(HttpStatus.S
 export const httpBadRequest = (res: Response, err: any) => res.status(HttpStatus.BadRequest).json(err);
 export const httpUnauthorized = (res: Response, err: any) => res.status(HttpStatus.Unauthorized).json(err);
 export const httpForbidden = (res: Response, err: any) => res.status(HttpStatus.Forbidden).json(err);
-export const httpNotFound = (res: Response, err: any) => res.status(HttpStatus.Forbidden).json(err);
+export const httpNotFound = (res: Response, err: any) => res.status(HttpStatus.NotFound).json(err);

@@ -1,7 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
 import db from './config/db.config';
-import User from './user.model';
-import Employer from './employer.model';
 
 class Comment extends Model {}
 
@@ -50,10 +48,7 @@ Comment.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'comment' }
+  { sequelize: db.sequelize }
 );
-
-Comment.belongsTo(User, { foreignKey: 'userId' });
-Comment.belongsTo(Employer, { foreignKey: 'employerId' });
 
 export default Comment;

@@ -2,7 +2,6 @@ import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
 import User from './user.model';
 import Employer from './employer.model';
-import Role from './role.model';
 import Image from './image.model';
 
 class Account extends Model {}
@@ -61,9 +60,12 @@ Account.init(
   { sequelize: db.sequelize, modelName: 'account' }
 );
 
-Account.hasMany(User, { foreignKey: 'accountId' });
-Account.hasMany(Employer, { foreignKey: 'accountId' });
-Account.hasMany(Image, { foreignKey: 'accountId' });
-Account.belongsTo(Role, { foreignKey: 'role_id' });
+Account.hasOne(User, { foreignKey: 'accountId' });
+Account.hasOne(Employer, { foreignKey: 'accountId' });
+Account.hasOne(Image, { foreignKey: 'accountId' });
+User.belongsTo(Account);
+Employer.belongsTo(Account);
+Image.belongsTo(Account);
+
 
 export default Account;

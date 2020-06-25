@@ -1,6 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
-import Account from './account.model';
 import Order from './order.model';
 import Comment from './comment.model';
 
@@ -16,7 +15,7 @@ User.init(
       autoIncrement: true
     },
     accountId: {
-      field: 'accountId',
+      field: 'account_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -37,11 +36,12 @@ User.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'user' }
+  { sequelize: db.sequelize }
 );
 
-User.belongsTo(Account, { foreignKey: 'accountId' });
 User.hasMany(Comment, { foreignKey: 'userId' });
 User.hasMany(Order, { foreignKey: 'userId' });
+Comment.belongsTo(User);
+Order.belongsTo(User);
 
 export default User;

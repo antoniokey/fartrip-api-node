@@ -1,6 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
-import Account from './account.model';
 import Comment from './comment.model';
 import Order from './order.model';
 
@@ -47,11 +46,12 @@ Employer.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'employer' }
+  { sequelize: db.sequelize }
 );
 
-Employer.belongsTo(Account, { foreignKey: 'accountId' });
 Employer.hasMany(Comment, { foreignKey: 'employerId' });
 Employer.hasMany(Order, { foreignKey: 'employerId' });
+Comment.belongsTo(Employer);
+Order.belongsTo(Employer);
 
 export default Employer;

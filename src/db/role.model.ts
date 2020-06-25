@@ -31,9 +31,10 @@ Role.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'role' }
+  { sequelize: db.sequelize }
 );
 
-Role.hasMany(Account, { foreignKey: 'role_id' });
+Role.hasMany(Account, { foreignKey: 'roleId' });
+Account.belongsTo(Role);
 
 export default Role;

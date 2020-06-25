@@ -19,7 +19,7 @@ Image.init(
       allowNull: false,
       references: {
         key: 'id',
-        model: 'role'
+        model: 'account'
       }
     },
     image: {
@@ -40,9 +40,7 @@ Image.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'role' }
+  { sequelize: db.sequelize }
 );
-
-Image.belongsTo(Account, { foreignKey: 'account_id' });
 
 export default Image;

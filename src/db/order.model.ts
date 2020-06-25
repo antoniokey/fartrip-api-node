@@ -1,7 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
 import db from './config/db.config';
-import User from './user.model';
-import Employer from './employer.model';
 
 class Order extends Model {}
 
@@ -70,10 +68,7 @@ Order.init(
       defaultValue: DataTypes.NOW
     }
   },
-  { sequelize: db.sequelize, modelName: 'order' }
+  { sequelize: db.sequelize }
 );
-
-Order.belongsTo(User, { foreignKey: 'userId' });
-Order.belongsTo(Employer, { foreignKey: 'employerId' });
 
 export default Order;
