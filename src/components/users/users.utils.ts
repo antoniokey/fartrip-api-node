@@ -3,7 +3,7 @@ import db from '../../db/config/db.config';
 import { QueryTypes } from 'sequelize';
 
 export const createUser = async (userData: User): Promise<void> => {
-  const roleQuery = `SELECT id FROM role WHERE role = 'USER'`;
+  const roleQuery = `SELECT id FROM role WHERE role = :role`;
   const accountQuery = `
     INSERT INTO account (role_id, email, password, name, age, created_date_time, modified_date_time)
     VALUES (?);
@@ -15,6 +15,7 @@ export const createUser = async (userData: User): Promise<void> => {
 
   const roleQueryResult: any = await db.sequelize.query(roleQuery, {
     type: QueryTypes.SELECT,
+    replacements: { role: userData.role },
     plain: true
   });
 
