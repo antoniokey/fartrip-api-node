@@ -8,7 +8,6 @@ export const missingGrantTypeErrorMessage = { status: HttpStatus.BadRequest, err
 export const incorrectGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectGrantType };
 export const missingCredentialsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingCredentials };
 export const userNotFoundErrorMessage = { status: HttpStatus.NotFound, errorMessage: OAuthErrorMessage.UserNotFound };
-export const userExistsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.UserExists };
 
 export const getAuthResponse = (data: any) => ({
   access_token: generateAccessToken(data),
