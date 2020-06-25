@@ -19,7 +19,7 @@ export const getAuthResponse = (data: Account): OAuthTokenResponse => ({
   role: data.role,
   expires_in: retrieveAccessTokenExpiration(),
   email: data.email,
-  id: data.accountId
+  id: data.id
 });
 
 export const isPasswordCorrect = async (enteredPassword: string, encryptedPassword: string): Promise<boolean> => {

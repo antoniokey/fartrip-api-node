@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import OAuthController from './src/components/oauth/oauth.controller';
 import UsersController from './src/components/users/users.controller';
+import EmployeesController from './src/components/employees/employees.controller';
 
 dotenv.config();
 
@@ -28,5 +29,6 @@ app.use(multer().any());
 
 app.use('/oauth', OAuthController());
 app.use('/users', UsersController());
+app.use('/employees', EmployeesController());
 
 export default app;

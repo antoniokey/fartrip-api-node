@@ -1,5 +1,5 @@
 import express from 'express';
-import { create } from './users.handlers';
+import { create } from './employees.handlers';
 import { hashPasswordMiddleware } from '../../common/middlewares/hash-password.middleware';
 import { accountExistsMiddleware } from '../../common/middlewares/account.middlewares';
 

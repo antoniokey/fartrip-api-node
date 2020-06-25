@@ -4,6 +4,10 @@ import { Role } from '../enums/role.enum';
 import { saveUser } from '../../components/users/users.utils';
 import { saveEmployee } from '../../components/employees/employees.utils';
 import { Account } from '../models/account.model';
+import { HttpStatus } from '../enums/http-status.enum';
+import { AccountErrorMessage } from '../enums/account.enum';
+
+export const accountExistsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: AccountErrorMessage.AccountExists };
 
 export const createAccount = async (accountData: Account): Promise<void> => {
   const roleId: number = await getRoleId(accountData.role);
@@ -12,7 +16,7 @@ export const createAccount = async (accountData: Account): Promise<void> => {
   if (accountData.role === Role.User) {
     await saveUser(savedAccount[0]);
   } else {
-    await saveEmployee(savedAccount[0], accountData.status, accountData.rating);
+    await saveEmployee(savedAccount[0]);
   }
 };
 
