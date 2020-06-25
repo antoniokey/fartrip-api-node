@@ -3,6 +3,6 @@ export enum OAuthErrorMessage {
   IncorrectAuthHeader = 'The Authorization header is incorrect!',
   MissingGrantType = 'The grant_type parameter is missing!',
   IncorrectGrantType = 'The grant_type parameter contains incorrect value!',
-  MissingCredentials = 'The username and password are required',
-  UserNotFound = 'Email of password is incorrect!'
+  MissingCredentials = 'The username and password are required!',
+  UserNotFound = 'Email or password is incorrect!'
 }
