@@ -1,13 +1,14 @@
 import jwt from 'jsonwebtoken';
+import { AccessToken, RefreshToken } from '../models/jwt.model';
 
-const getAccessTokenPayload = (payload: any): any => ({
+const getAccessTokenPayload = (payload: any): AccessToken => ({
   exp: Math.floor(Date.now() / 1000) + (10 * 60),
   sub: 'fartrip',
   role: payload.role,
   accountId: payload.accountId,
 });
 
-const getRefreshTokenPayload = (payload: any): any => ({
+const getRefreshTokenPayload = (payload: any): RefreshToken => ({
   exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
   accountId: payload.accountId,
 });
