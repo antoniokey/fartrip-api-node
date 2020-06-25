@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('order',
+    return queryInterface.createTable('employee',
       {
         id: {
           field: 'id',
@@ -11,47 +11,23 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        userId: {
-          field: 'user_id',
+        accountId: {
+          field: 'account_id',
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
-            key: 'id',
-            model: 'user'
+            model: 'account',
+            key: 'id'
           }
         },
-        employerId: {
-          field: 'employer_id',
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            key: 'id',
-            model: 'employer'
-          }
-        },
-        departure: {
-          field: 'departure',
-          type: Sequelize.STRING(50),
+        status: {
+          field: 'status',
+          type: Sequelize.ENUM('available', 'in_progress', 'out_of_work'),
           allowNull: false
         },
-        destination: {
-          field: 'destination',
-          type: Sequelize.STRING(50),
-          allowNull: false
-        },
-        distance: {
-          field: 'distance',
-          type: Sequelize.INTEGER,
-          allowNull: false
-        },
-        cost: {
-          field: 'cost',
+        rating: {
+          field: 'rating',
           type: Sequelize.FLOAT,
-          allowNull: false
-        },
-        spentTime: {
-          field: 'spent_time',
-          type: Sequelize.INTEGER,
           allowNull: false
         },
         createdDateTime: {
@@ -72,6 +48,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('order');
+    return queryInterface.dropTable('employee');
   }
 };

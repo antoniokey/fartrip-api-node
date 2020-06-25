@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comment',
+    return queryInterface.createTable('order',
       {
         id: {
           field: 'id',
@@ -20,18 +20,38 @@ module.exports = {
             model: 'user'
           }
         },
-        employerId: {
-          field: 'employer_id',
+        employeeId: {
+          field: 'employee_id',
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
             key: 'id',
-            model: 'employer'
+            model: 'employee'
           }
         },
-        text: {
+        departure: {
           field: 'departure',
-          type: Sequelize.STRING,
+          type: Sequelize.STRING(50),
+          allowNull: false
+        },
+        destination: {
+          field: 'destination',
+          type: Sequelize.STRING(50),
+          allowNull: false
+        },
+        distance: {
+          field: 'distance',
+          type: Sequelize.INTEGER,
+          allowNull: false
+        },
+        cost: {
+          field: 'cost',
+          type: Sequelize.FLOAT,
+          allowNull: false
+        },
+        spentTime: {
+          field: 'spent_time',
+          type: Sequelize.INTEGER,
           allowNull: false
         },
         createdDateTime: {
@@ -52,6 +72,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-   return queryInterface.dropTable('comment');
+    return queryInterface.dropTable('order');
   }
 };

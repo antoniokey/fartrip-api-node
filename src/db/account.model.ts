@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
 import User from './user.model';
-import Employer from './employer.model';
+import Employee from './employee.model';
 import Image from './image.model';
 
 class Account extends Model {}
@@ -31,7 +31,7 @@ Account.init(
     },
     password: {
       field: 'password',
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING,
       allowNull: false
     },
     name: {
@@ -61,10 +61,10 @@ Account.init(
 );
 
 Account.hasOne(User, { foreignKey: 'accountId' });
-Account.hasOne(Employer, { foreignKey: 'accountId' });
+Account.hasOne(Employee, { foreignKey: 'accountId' });
 Account.hasOne(Image, { foreignKey: 'accountId' });
 User.belongsTo(Account);
-Employer.belongsTo(Account);
+Employee.belongsTo(Account);
 Image.belongsTo(Account);
 
 

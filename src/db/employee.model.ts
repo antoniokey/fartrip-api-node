@@ -3,9 +3,9 @@ import db from './config/db.config';
 import Comment from './comment.model';
 import Order from './order.model';
 
-class Employer extends Model {}
+class Employee extends Model {}
 
-Employer.init(
+Employee.init(
   {
     id: {
       field: 'id',
@@ -49,9 +49,9 @@ Employer.init(
   { sequelize: db.sequelize }
 );
 
-Employer.hasMany(Comment, { foreignKey: 'employerId' });
-Employer.hasMany(Order, { foreignKey: 'employerId' });
-Comment.belongsTo(Employer);
-Order.belongsTo(Employer);
+Employee.hasMany(Comment, { foreignKey: 'employeeId' });
+Employee.hasMany(Order, { foreignKey: 'employeeId' });
+Comment.belongsTo(Employee);
+Order.belongsTo(Employee);
 
-export default Employer;
+export default Employee;

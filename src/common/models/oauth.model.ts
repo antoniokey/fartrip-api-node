@@ -5,5 +5,5 @@ export interface OAuthTokenResponse {
   role: string,
   expires_in: number,
   email: string,
-  id: number
+  id?: number
 };

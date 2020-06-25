@@ -15,7 +15,7 @@ Role.init(
     },
     role: {
       field: 'role',
-      type: DataTypes.ENUM('USER', 'EMPLOYER', 'ADMIN'),
+      type: DataTypes.ENUM('USER', 'EMPLOYEE', 'ADMIN'),
       allowNull: false
     },
     createdDateTime: {

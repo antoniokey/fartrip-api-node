@@ -21,13 +21,13 @@ Order.init(
         model: 'user'
       }
     },
-    employerId: {
-      field: 'employer_id',
+    employeeId: {
+      field: 'employee_id',
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         key: 'id',
-        model: 'employer'
+        model: 'employee'
       }
     },
     departure: {

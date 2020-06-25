@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt';
 import { HttpStatus } from '../enums/http-status.enum';
 import { OAuthErrorMessage } from '../enums/oauth-error-message.enum';
 import { generateAccessToken, generateRefreshToken, retrieveAccessTokenExpiration } from './jwt.utils';
-import { Account } from '../models/account.model';
 import { OAuthTokenResponse } from '../models/oauth.model';
+import { Account } from '../models/account.model';
 
 export const missingAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.MissingAuthHeader };
 export const incorrectAuthHeaderErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectAuthHeader };
@@ -20,3 +21,7 @@ export const getAuthResponse = (data: Account): OAuthTokenResponse => ({
   email: data.email,
   id: data.accountId
 });
+
+export const isPasswordCorrect = async (enteredPassword: string, encryptedPassword: string): Promise<boolean> => {
+  return await bcrypt.compare(enteredPassword, encryptedPassword);
+};

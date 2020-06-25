@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('account',
+    return queryInterface.createTable('comment',
       {
         id: {
           field: 'id',
@@ -11,33 +11,27 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        roleId: {
-          field: 'role_id',
+        userId: {
+          field: 'user_id',
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
             key: 'id',
-            model: 'role'
+            model: 'user'
           }
         },
-        email: {
-          field: 'email',
-          type: Sequelize.STRING(20),
-          allowNull: false
+        employeeId: {
+          field: 'employee_id',
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            key: 'id',
+            model: 'employee'
+          }
         },
-        password: {
-          field: 'password',
-          type: Sequelize.STRING(50),
-          allowNull: false
-        },
-        name: {
-          field: 'name',
-          type: Sequelize.STRING(20),
-          allowNull: false
-        },
-        age: {
-          field: 'age',
-          type: Sequelize.STRING(20),
+        text: {
+          field: 'departure',
+          type: Sequelize.STRING,
           allowNull: false
         },
         createdDateTime: {
@@ -51,13 +45,13 @@ module.exports = {
           type: Sequelize.DATE,
           allowNull: false,
           defaultValue: Sequelize.NOW
-        },
+        }
       },
-      { charset: 'utf8', collate: 'utf8_unicode_ci' }
+      { cherset: 'utf8', collate: 'utf8_unicode_ci' }
     );
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('account');
+   return queryInterface.dropTable('comment');
   }
 };
