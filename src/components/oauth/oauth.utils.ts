@@ -1,17 +1,23 @@
-import Account from '../../db/account.model';
-import { userNotFoundErrorMessage } from '../../common/utils/oauth.util';
+import { userNotFoundErrorMessage, getAuthResponse } from '../../common/utils/oauth.utils';
 import db from '../../db/config/db.config';
 import { QueryTypes } from 'sequelize';
 
-export const authenticateUser = (username: any, password: any): Promise<any> => {
-  const query = `SELECT * FROM account WHERE email = "${username}"`;
+export const authenticateUser = async (username: any, password: any): Promise<any> => {
+  const query = `
+    SELECT account.id AS accountId, account.email, role.role, account.name
+    FROM role
+    RIGHT JOIN account ON account.role_id = role.id
+    WHERE email = :email`;
+    
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { email: username },
+    plain: true
+  });
 
-  return db.sequelize.query(query, { type: QueryTypes.SELECT, plain: true })
-    .then(value => {
-      if (!value) {
-        return Promise.reject(userNotFoundErrorMessage);
-      }
+  if (!queryResult) {
+    return Promise.reject(userNotFoundErrorMessage);
+  }
 
-      return value;
-    });
+  return getAuthResponse(queryResult);
 };

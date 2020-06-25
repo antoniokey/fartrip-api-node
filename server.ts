@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import OAuthController from './src/components/oauth/oauth.controller';
+import UsersController from './src/components/users/users.controller';
 
 dotenv.config();
 
@@ -26,5 +27,6 @@ app.use(cors({ origin: process.env.DEV_ORIGIN }));
 app.use(multer().any());
 
 app.use('/oauth', OAuthController());
+app.use('/users', UsersController());
 
 export default app;

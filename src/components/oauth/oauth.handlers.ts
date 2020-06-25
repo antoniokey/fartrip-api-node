@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { authenticateUser } from './oauth.utils';
-import { httpSuccess, httpNotFound } from '../../common/utils/http.util';
+import { httpSuccess, httpNotFound } from '../../common/utils/http.utils';
 import { ErrorMesage } from '../../common/models/error.model';
 
 export const token = (req: Request, res: Response): Promise<any> => {

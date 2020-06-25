@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { httpBadRequest, httpUnauthorized } from '../../common/utils/http.util';
+import { httpBadRequest, httpUnauthorized } from '../../common/utils/http.utils';
 import {
   missingAuthHeaderErrorMessage,
   incorrectAuthHeaderErrorMessage,
   missingGrantTypeErrorMessage,
   incorrectGrantTypeErrorMessage,
   missingCredentialsErrorMessage
-} from '../../common/utils/oauth.util';
+} from '../../common/utils/oauth.utils';
 
 export const oauthTokenMiddleware = (req: Request, res: Response, next: NextFunction): Response<any> | void  => {
   const { grant_type, username, password } = req.query;

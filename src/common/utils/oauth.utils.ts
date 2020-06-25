@@ -1,5 +1,6 @@
 import { HttpStatus } from '../enums/http-status.enum';
 import { OAuthErrorMessage } from '../enums/oauth-error-message.enum';
+import { generateAccessToken, generateRefreshToken, retrieveAccessTokenExpiration } from './jwt.utils';
 
 export const missingAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.MissingAuthHeader };
 export const incorrectAuthHeaderErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectAuthHeader };
@@ -7,3 +8,14 @@ export const missingGrantTypeErrorMessage = { status: HttpStatus.BadRequest, err
 export const incorrectGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectGrantType };
 export const missingCredentialsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingCredentials };
 export const userNotFoundErrorMessage = { status: HttpStatus.NotFound, errorMessage: OAuthErrorMessage.UserNotFound };
+export const userExistsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.UserExists };
+
+export const getAuthResponse = (data: any) => ({
+  access_token: generateAccessToken(data),
+  refresh_token: generateRefreshToken(data),
+  token_type: 'bearer',
+  role: data.role,
+  expires_in: retrieveAccessTokenExpiration(),
+  email: data.email,
+  id: data.accountId
+});

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user',
+    return queryInterface.createTable('employer',
       {
         id: {
           field: 'id',
@@ -12,13 +12,23 @@ module.exports = {
           autoIncrement: true
         },
         accountId: {
-          field: 'accountId',
+          field: 'account_id',
           type: Sequelize.INTEGER,
           allowNull: false,
           references: {
             model: 'account',
             key: 'id'
           }
+        },
+        status: {
+          field: 'status',
+          type: Sequelize.ENUM('available', 'in_progress', 'out_of_work'),
+          allowNull: false
+        },
+        rating: {
+          field: 'rating',
+          type: Sequelize.FLOAT,
+          allowNull: false
         },
         createdDateTime: {
           field: 'created_date_time',
@@ -38,6 +48,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('user');
+    return queryInterface.dropTable('employer');
   }
 };
