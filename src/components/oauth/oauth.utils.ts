@@ -34,4 +34,4 @@ const getAuthenticatedUser = async (username: any, password: any): Promise<Accou
   });
 
   return queryResult;
-}
+};

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { httpUnauthorized } from '../utils/http.utils';
-import { checkAccessTokenValidity, isExpiredTokenError } from '../utils/jwt.utils';
+import { checkTokenValidity, isExpiredTokenError } from '../utils/jwt.utils';
 import {
   missingAuthHeaderErrorMessage,
   incorrectAuthHeaderErrorMessage,
@@ -15,7 +15,7 @@ export const authorizationMiddleware = async (req: Request, res: Response, next:
 
   const token = header.replace('Bearer ', '');
   try {
-    checkAccessTokenValidity(token);
+    checkTokenValidity(token);
   } catch (error) {
     if (isExpiredTokenError(error)) {
       return httpUnauthorized(res, accessTokenExpiredErrorMessage);

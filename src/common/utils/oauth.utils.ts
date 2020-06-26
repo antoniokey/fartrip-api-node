@@ -8,14 +8,17 @@ import { Account } from '../models/account.model';
 export const missingAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.MissingAuthHeader };
 export const incorrectAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.IncorrectAuthHeader };
 export const accessTokenExpiredErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.AccessTokenTokenExpired };
+export const refreshTokenExpiredErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.RefreshTokenTokenExpired };
+export const missingRefreshTokenErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.MissingRefreshToken };
 export const missingGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingGrantType };
 export const incorrectGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectGrantType };
 export const missingCredentialsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingCredentials };
 export const userNotFoundErrorMessage = { status: HttpStatus.NotFound, errorMessage: OAuthErrorMessage.UserNotFound };
+export const incorrectClientErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.IncorrectClient };
 
 export const getAuthResponse = (data: Account): OAuthTokenResponse => ({
-  access_token: generateAccessToken(data),
-  refresh_token: generateRefreshToken(data),
+  access_token: generateAccessToken(),
+  refresh_token: generateRefreshToken(),
   token_type: 'bearer',
   role: data.role,
   expires_in: retrieveAccessTokenExpiration(),
