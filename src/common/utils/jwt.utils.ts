@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import { AccessToken, RefreshToken } from '../models/jwt.model';
 
 const getAccessTokenPayload = (payload: any): AccessToken => ({
@@ -12,6 +12,14 @@ const getRefreshTokenPayload = (payload: any): RefreshToken => ({
   exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
   accountId: payload.accountId,
 });
+
+export const checkAccessTokenValidity = (token: string):void => {
+  jwt.verify(token, process.env.JWT_SECRET || 'secret');
+};
+
+export const isExpiredTokenError = (error: any): boolean => {
+  return error instanceof TokenExpiredError;
+};
 
 export const generateAccessToken = (payload: any): string => {
   return jwt.sign(getAccessTokenPayload(payload), process.env.JWT_SECRET || 'secret');

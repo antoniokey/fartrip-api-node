@@ -1,6 +1,12 @@
 import { Request, Response } from 'express';
-import { httpNoContent } from '../../common/utils/http.utils';
+import { httpNoContent, httpSuccess } from '../../common/utils/http.utils';
 import { createAccount } from '../../common/utils/account.utils';
+import { getUsers } from './users.utils';
+
+export const index = (req: Request, res: Response): Promise<any> => {
+  return getUsers()
+    .then(data => httpSuccess(res, data));
+};
 
 export const create = (req: Request, res: Response): Promise<any> => {
   const { email, password, name, age, role } = req.body;

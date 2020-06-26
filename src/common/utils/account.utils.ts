@@ -45,7 +45,7 @@ export const saveAccountData = async (roleId: number, email: string, age: number
 };
 
 export const isAccountExist = async (email: any): Promise<boolean> => {
-  const query = `SELECT id FROM account WHERE email = :email`;
+  const query = `SELECT id FROM account WHERE email = :email;`;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { email },

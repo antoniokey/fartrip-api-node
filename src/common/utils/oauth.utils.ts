@@ -6,7 +6,8 @@ import { OAuthTokenResponse } from '../models/oauth.model';
 import { Account } from '../models/account.model';
 
 export const missingAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.MissingAuthHeader };
-export const incorrectAuthHeaderErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectAuthHeader };
+export const incorrectAuthHeaderErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.IncorrectAuthHeader };
+export const accessTokenExpiredErrorMessage = { status: HttpStatus.Unauthorized, errorMessage: OAuthErrorMessage.AccessTokenTokenExpired };
 export const missingGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingGrantType };
 export const incorrectGrantTypeErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.IncorrectGrantType };
 export const missingCredentialsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: OAuthErrorMessage.MissingCredentials };

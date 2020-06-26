@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import db from './config/db.config';
 import Comment from './comment.model';
 import Order from './order.model';
+import Car from './car.model';
 
 class Employee extends Model {}
 
@@ -51,7 +52,9 @@ Employee.init(
 
 Employee.hasMany(Comment, { foreignKey: 'employeeId' });
 Employee.hasMany(Order, { foreignKey: 'employeeId' });
+Employee.hasOne(Car, { foreignKey: 'employeeId' });
 Comment.belongsTo(Employee);
 Order.belongsTo(Employee);
+Car.belongsTo(Employee);
 
 export default Employee;

@@ -57,7 +57,7 @@ Account.init(
       defaultValue: DataTypes.NOW
     },
   },
-  { sequelize: db.sequelize, modelName: 'account' }
+  { sequelize: db.sequelize }
 );
 
 Account.hasOne(User, { foreignKey: 'accountId' });

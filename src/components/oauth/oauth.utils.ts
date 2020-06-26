@@ -21,10 +21,11 @@ export const authenticateUser = async (username: any, password: any): Promise<OA
 
 const getAuthenticatedUser = async (username: any, password: any): Promise<Account> => {
   const query = `
-  SELECT account.id, account.email, role.role, account.name, account.password
-  FROM role
-  RIGHT JOIN account ON account.role_id = role.id
-  WHERE email = :email`;
+    SELECT account.id, account.email, role.role, account.name, account.password
+    FROM role
+    RIGHT JOIN account ON account.role_id = role.id
+    WHERE email = :email;
+  `;
   
   const queryResult: Account = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
