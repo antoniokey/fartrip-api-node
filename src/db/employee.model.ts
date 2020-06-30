@@ -34,6 +34,10 @@ Employee.init(
       type: DataTypes.FLOAT,
       allowNull: false
     },
+    workDescription: {
+      field: 'wordk_description',
+      type: DataTypes.STRING
+    },
     createdDateTime: {
       field: 'created_date_time',
       type: DataTypes.DATE,

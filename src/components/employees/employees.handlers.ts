@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
-import { httpNoContent, httpSuccess } from '../../common/utils/http.utils';
-import { getEmployees, getEmployee } from './employees.utils';
+import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
+import { getEmployees, getEmployee, updateEmployee } from './employees.utils';
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
@@ -12,7 +12,12 @@ export const getOne = (req: Request, res: Response): Promise<any> => {
   const { id } = req.params;
   
   return getEmployee(id)
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch(error => {
+      if (error.status === 404) {
+        return httpNotFound(res, null);
+      }
+    });
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {
@@ -21,3 +26,12 @@ export const create = (req: Request, res: Response): Promise<any> => {
   return createAccount({ email, password, name, age, role })
     .then(() => httpNoContent(res));
 };
+
+export const updateOne = (req: Request, res: Response): Promise<any> => {
+  const { id } = req.params;
+  const { name, age, email, status } = req.body;
+
+  return updateEmployee(id, { name, age, email, status })
+      .then(() => httpNoContent(res));
+};
+

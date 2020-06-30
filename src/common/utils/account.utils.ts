@@ -1,4 +1,5 @@
-import { QueryTypes } from 'sequelize';
+import bcrypt from 'bcrypt';
+import { QueryTypes, Transaction } from 'sequelize';
 import db from '../../db/config/db.config';
 import { Role } from '../enums/role.enum';
 import { saveUser } from '../../components/users/users.utils';
@@ -6,8 +7,11 @@ import { saveEmployee } from '../../components/employees/employees.utils';
 import { Account } from '../models/account.model';
 import { HttpStatus } from '../enums/http-status.enum';
 import { AccountErrorMessage } from '../enums/account.enum';
+import { isPasswordCorrect } from './oauth.utils';
 
 export const accountExistsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: AccountErrorMessage.AccountExists };
+export const incorrectPasswordErrorMessage = { status: HttpStatus.BadRequest, errorMessage: AccountErrorMessage.IncorrectPassword };
+export const accountNotFoundErrorMessage = { status: HttpStatus.NotFound, errorMessage: AccountErrorMessage.AccountNotFound };
 
 export const createAccount = async (accountData: Account): Promise<void> => {
   const roleId: number = await getRoleId(accountData.role);
@@ -32,15 +36,32 @@ export const getRoleId = async (role: string): Promise<number> => {
 };
 
 export const saveAccountData = async (roleId: number, email: string, age: number, password: string, name: string): Promise<number[]> => {
-  const query = `
-    INSERT INTO account (role_id, email, password, name, age, created_date_time, modified_date_time)
-    VALUES (?);
-  `;
-  return await db.sequelize.query(query, {
-    type: QueryTypes.INSERT,
-    replacements: [
-      [roleId, email, password, name, age, new Date(), new Date()]
-    ]
+  return db.sequelize.transaction(async (transaction: Transaction) => {
+    const query = `
+      INSERT INTO account (role_id, email, password, name, age, created_date_time, modified_date_time)
+      VALUES (?);
+    `;
+    return await db.sequelize.query(query, {
+      type: QueryTypes.INSERT,
+      replacements: [
+        [roleId, email, password, name, age, new Date(), new Date()]
+      ],
+      transaction
+    });
+  });
+};
+
+export const updateAccountPassword = async (accountId: string, password: string): Promise<any> => {
+  const hashedPassword = await bcrypt.hash(password, 12);
+  
+  return db.sequelize.transaction(async (transaction: Transaction) => {
+    const query = `UPDATE account SET password = :password WHERE id = :accountId;`;
+
+    return await db.sequelize.query(query, {
+      type: QueryTypes.UPDATE,
+      replacements: { password: hashedPassword, accountId },
+      transaction
+    });
   });
 };
 
@@ -54,3 +75,24 @@ export const isAccountExist = async (email: any): Promise<boolean> => {
 
   return !!queryResult;
 };
+
+export const passwordCorrect = async (accountId: any, password: string): Promise<boolean> => {
+  const accountPassword = await getAccountPassword(accountId);
+  const passwordsEqual = await isPasswordCorrect(password, accountPassword);
+  if (passwordsEqual) {
+    return true;
+  }
+
+  return false;
+};
+
+const getAccountPassword = async (accountId: string): Promise<any> => {
+  const query = `SELECT password FROM account WHERE id = :accountId`
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { accountId },
+    plain: true
+  });
+
+  return queryResult.password;
+}
