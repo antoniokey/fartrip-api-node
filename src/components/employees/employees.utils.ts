@@ -3,6 +3,37 @@ import { EmployeeStatus } from '../../common/enums/employee-status';;
 import db from '../../db/config/db.config';
 import { accountNotFoundErrorMessage } from '../../common/utils/account.utils';
 
+const getOrderUserId = async (orderId: string): Promise<number> => {
+  const query = `
+    SELECT far_trip.order.user_id
+    FROM far_trip.order
+    WHERE far_trip.order.id = :orderId;
+  `;
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { orderId: +orderId },
+    plain: true
+  });
+
+  return queryResult.user_id;
+};
+
+const getOrderUserName = async (userId: number): Promise<string> => {
+  const query = `
+    SELECT account.name
+    FROM user
+    INNER JOIN account ON user.account_id = account.id
+    WHERE user.id = :userId;
+  `;
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { userId: +userId },
+    plain: true
+  });
+
+  return queryResult.name;
+};
+
 export const getEmployees = async (): Promise<object[]> => {
   const query = `
     SELECT
@@ -64,11 +95,61 @@ export const getEmployee = async (accountId: any): Promise<any> => {
   return Promise.reject(accountNotFoundErrorMessage);
 };
 
+export const getOrdersData = async (id: string): Promise<any> => {
+  const query = `
+    SELECT
+      far_trip.account.name,
+      far_trip.order.id,
+      far_trip.order.user_id AS userId,
+      far_trip.order.departure,
+      far_trip.order.destination,
+      far_trip.order.distance,
+      far_trip.order.cost,
+      far_trip.order.status,
+      far_trip.order.spend_time AS spendTime
+    FROM far_trip.employee
+    INNER JOIN far_trip.account ON far_trip.employee.account_id = far_trip.account.id
+    INNER JOIN far_trip.order ON far_trip.order.employee_id = far_trip.employee.id
+    WHERE far_trip.account.id = :accountId;
+  `;
+  const queryResult = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { accountId: +id }
+  });
+
+  return queryResult;
+};
+
+export const getOrderData = async (accountId: string, orderId: string): Promise<any> => {
+  const query = `
+    SELECT
+      far_trip.order.departure,
+      far_trip.order.destination,
+      far_trip.order.distance,
+      far_trip.order.cost,
+      far_trip.order.status,
+      far_trip.order.spend_time AS spendTime
+    FROM far_trip.employee
+    INNER JOIN far_trip.account ON far_trip.employee.account_id = far_trip.account.id
+    INNER JOIN far_trip.order ON far_trip.order.employee_id = far_trip.employee.id
+    WHERE far_trip.account.id = :accountId AND far_trip.order.id = :orderId;
+  `;
+  const queryResult = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { accountId: +accountId, orderId: +orderId },
+    plain: true
+  });
+  const userId = await getOrderUserId(orderId);
+  const userName = await getOrderUserName(userId);
+
+  return { ...queryResult, name: userName };
+};
+
 export const updateCarData = async (accountId: string, data: any): Promise<any> => {
   return db.sequelize.transaction<any>(async (transaction: Transaction) => {
     const query = `
       UPDATE
-      car
+        car
       INNER JOIN
         employee
       ON
