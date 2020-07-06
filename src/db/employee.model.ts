@@ -38,6 +38,11 @@ Employee.init(
       field: 'wordk_description',
       type: DataTypes.STRING
     },
+    costPerKm: {
+      field: 'cost_per_km',
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
     createdDateTime: {
       field: 'created_date_time',
       type: DataTypes.DATE,

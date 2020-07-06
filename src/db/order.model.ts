@@ -50,9 +50,29 @@ Order.init(
       type: DataTypes.FLOAT,
       allowNull: false
     },
-    spentTime: {
-      field: 'spent_time',
+    spendTime: {
+      field: 'spend_time',
       type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    status: {
+      field: 'status',
+      type: DataTypes.ENUM('new', 'in_progress', 'canceled', 'completed'),
+      allowNull: false
+    },
+    time: {
+      field: 'time',
+      type: DataTypes.STRING(10),
+      allowNull: false
+    },
+    date: {
+      field: 'date',
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    userNotes: {
+      field: 'user_notes',
+      type: DataTypes.STRING,
       allowNull: false
     },
     createdDateTime: {

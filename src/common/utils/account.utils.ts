@@ -24,6 +24,40 @@ export const createAccount = async (accountData: Account): Promise<void> => {
   }
 };
 
+export const getEmployeeIdByAccountId = async (accountId: string): Promise<any> => {
+  const query = `
+    SELECT employee.id
+    FROM employee
+    LEFT JOIN account
+    ON employee.account_id = account.id
+    WHERE account.id = :accountId;
+  `;
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    plain: true,
+    replacements: { accountId: +accountId }
+  });
+
+  return queryResult.id;
+};
+
+export const getUserIdByAccountId = async (accountId: string): Promise<any> => {
+  const query = `
+    SELECT user.id
+    FROM user
+    LEFT JOIN account
+    ON user.account_id = account.id
+    WHERE account.id = :accountId;
+  `;
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    plain: true,
+    replacements: { accountId: +accountId }
+  });
+
+  return queryResult.id;
+};
+
 export const getRoleId = async (role: string): Promise<number> => {
   const query = `SELECT id FROM role WHERE role = :role`;
   const queryResult: any = await db.sequelize.query(query, {

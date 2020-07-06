@@ -1,0 +1,33 @@
+import { Request, Response, NextFunction } from 'express';
+import request from 'request'
+import { ExtaernalApi } from '../../common/enums/external-api.enum';
+
+export const getDistanceBetweenPoints = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  const { departure, destination } = req.body.order;
+
+  request(`${ExtaernalApi.Distance}${departure}|${destination}`, (err, response, body) => {
+    const distance = JSON.parse(body).distance;
+    req.body.order.distance = distance;
+
+    next();
+  });
+};
+
+export const computeCost = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  const { employee, order } = req.body;
+  const cost = order.distance * employee.employeeCostPerKm;
+
+  req.body.order.cost = cost;
+
+  next();
+};
+
+export const computeSpendTime = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+  const { order } = req.body;
+  const spendTime = (order.distance / 100) * 3600;
+
+  req.body.order.spendTime = spendTime;
+
+  next();
+};
+

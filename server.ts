@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import OAuthController from './src/components/oauth/oauth.controller';
 import UsersController from './src/components/users/users.controller';
 import EmployeesController from './src/components/employees/employees.controller';
+import OrdersController from './src/components/orders/orders.controller';
 
 dotenv.config();
 
@@ -30,5 +31,6 @@ app.use(multer().any());
 app.use('/oauth', OAuthController());
 app.use('/users', UsersController());
 app.use('/employees', EmployeesController());
+app.use('/orders', OrdersController());
 
 export default app;
