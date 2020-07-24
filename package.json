@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node-dev --inspect -- ./bin/www.ts"
+    "start": "ts-node-dev ./bin/www.ts"
   },
   "author": "",
   "license": "ISC",

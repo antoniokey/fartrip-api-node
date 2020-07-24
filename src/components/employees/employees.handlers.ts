@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
 import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
-import { getEmployees, getEmployee, updateEmployee, getOrdersData, getOrderData, getCommentsData } from './employees.utils';
+import { getEmployees, getEmployee, updateEmployee, getOrdersData, getOrderData, getCommentsData, createCommentData } from './employees.utils';
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
@@ -46,6 +46,14 @@ export const create = (req: Request, res: Response): Promise<any> => {
 
   return createAccount({ email, password, name, age, role })
     .then(() => httpNoContent(res));
+};
+
+export const createComment = (req: Request, res: Response): Promise<any> => {
+  const { id } = req.params;
+  const { userAccountId, comment } = req.body;
+
+  return createCommentData(id, userAccountId, comment)
+    .then(data => httpSuccess(res, data));
 };
 
 export const updateOne = (req: Request, res: Response): Promise<any> => {

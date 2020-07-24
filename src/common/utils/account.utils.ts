@@ -28,8 +28,7 @@ export const getEmployeeIdByAccountId = async (accountId: string): Promise<any> 
   const query = `
     SELECT employees.id
     FROM employees
-    LEFT JOIN accounts
-    ON employees.account_id = accounts.id
+    LEFT JOIN accounts ON employees.account_id = accounts.id
     WHERE accounts.id = :accountId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
@@ -45,8 +44,7 @@ export const getUserIdByAccountId = async (accountId: string): Promise<any> => {
   const query = `
     SELECT users.id
     FROM users
-    LEFT JOIN accounts
-    ON users.account_id = account.id
+    LEFT JOIN accounts ON users.account_id = accounts.id
     WHERE accounts.id = :accountId;
   `;
   const queryResult: any = await db.sequelize.query(query, {

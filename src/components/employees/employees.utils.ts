@@ -2,7 +2,7 @@ import { Transaction, QueryTypes } from 'sequelize';
 import { flatten } from 'lodash';
 import { EmployeeStatus } from '../../common/enums/employee-status';;
 import db from '../../db/config/db.config';
-import { accountNotFoundErrorMessage } from '../../common/utils/account.utils';
+import { accountNotFoundErrorMessage, getEmployeeIdByAccountId, getUserIdByAccountId } from '../../common/utils/account.utils';
 
 const getOrderUserId = async (orderId: string): Promise<number> => {
   const query = `
@@ -54,6 +54,26 @@ const getCommentsUserNames = (comments: any[]) => {
   });
 
   return Promise.all(queryPromises);
+};
+
+const getCommentById = async (commentId: number): Promise<any> => {
+  const query = `
+    SELECT
+      far_trip.accounts.name AS userName,
+      far_trip.comments.comment,
+      far_trip.comments.created_date_time AS createdDate
+    FROM far_trip.comments
+    INNER JOIN far_trip.users ON far_trip.users.id = far_trip.comments.user_id
+    INNER JOIN far_trip.accounts ON far_trip.accounts.id = far_trip.users.account_id
+    WHERE far_trip.comments.id = :commentId;
+  `;
+  const queryResult: any = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    plain: true,
+    replacements: { commentId }
+  });
+
+  return queryResult;
 };
 
 export const getEmployees = async (): Promise<object[]> => {
@@ -251,6 +271,29 @@ const saveCar = async (employee_id: number): Promise<void> => {
       transaction
     });
   });
+};
+
+export const createCommentData = async (employeeAccountId: string, userAccountId: string, comment: any): Promise<any> => {
+  const employeeId = await getEmployeeIdByAccountId(employeeAccountId);
+  const userId = await getUserIdByAccountId(userAccountId);
+  const createdCommentId = await db.sequelize.transaction<any>(async (transaction: Transaction) => {
+    const query = `
+      INSERT INTO comments (user_id, employee_id, comment, created_date_time, modified_date_time)
+      VALUES (?)
+    `;
+    const queryResult = await db.sequelize.query(query, {
+      type: QueryTypes.INSERT,
+      replacements: [
+        [userId, employeeId, comment.comment, new Date(), new Date()]
+      ],
+      transaction
+    });
+
+    return queryResult[0];
+  });
+  const createdComment = await getCommentById(createdCommentId);
+
+  return createdComment;
 };
 
 export const updateEmployee = async (accountId: string, data: any): Promise<any> => {
