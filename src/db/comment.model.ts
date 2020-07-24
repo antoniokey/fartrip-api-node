@@ -31,7 +31,7 @@ Comment.init(
       }
     },
     text: {
-      field: 'departure',
+      field: 'text',
       type: DataTypes.STRING,
       allowNull: false
     },

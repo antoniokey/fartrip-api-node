@@ -26,11 +26,11 @@ export const createAccount = async (accountData: Account): Promise<void> => {
 
 export const getEmployeeIdByAccountId = async (accountId: string): Promise<any> => {
   const query = `
-    SELECT employee.id
-    FROM employee
-    LEFT JOIN account
-    ON employee.account_id = account.id
-    WHERE account.id = :accountId;
+    SELECT employees.id
+    FROM employees
+    LEFT JOIN accounts
+    ON employees.account_id = accounts.id
+    WHERE accounts.id = :accountId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -43,11 +43,11 @@ export const getEmployeeIdByAccountId = async (accountId: string): Promise<any> 
 
 export const getUserIdByAccountId = async (accountId: string): Promise<any> => {
   const query = `
-    SELECT user.id
-    FROM user
-    LEFT JOIN account
-    ON user.account_id = account.id
-    WHERE account.id = :accountId;
+    SELECT users.id
+    FROM users
+    LEFT JOIN accounts
+    ON users.account_id = account.id
+    WHERE accounts.id = :accountId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -59,7 +59,7 @@ export const getUserIdByAccountId = async (accountId: string): Promise<any> => {
 };
 
 export const getRoleId = async (role: string): Promise<number> => {
-  const query = `SELECT id FROM role WHERE role = :role`;
+  const query = `SELECT id FROM roles WHERE role = :role`;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { role },
@@ -72,7 +72,7 @@ export const getRoleId = async (role: string): Promise<number> => {
 export const saveAccountData = async (roleId: number, email: string, age: number, password: string, name: string): Promise<number[]> => {
   return db.sequelize.transaction(async (transaction: Transaction) => {
     const query = `
-      INSERT INTO account (role_id, email, password, name, age, created_date_time, modified_date_time)
+      INSERT INTO accounts (role_id, email, password, name, age, created_date_time, modified_date_time)
       VALUES (?);
     `;
     return await db.sequelize.query(query, {
@@ -89,7 +89,7 @@ export const updateAccountPassword = async (accountId: string, password: string)
   const hashedPassword = await bcrypt.hash(password, 12);
   
   return db.sequelize.transaction(async (transaction: Transaction) => {
-    const query = `UPDATE account SET password = :password WHERE id = :accountId;`;
+    const query = `UPDATE accounts SET password = :password WHERE id = :accountId;`;
 
     return await db.sequelize.query(query, {
       type: QueryTypes.UPDATE,
@@ -100,7 +100,7 @@ export const updateAccountPassword = async (accountId: string, password: string)
 };
 
 export const isAccountExist = async (email: any): Promise<boolean> => {
-  const query = `SELECT id FROM account WHERE email = :email;`;
+  const query = `SELECT id FROM accounts WHERE email = :email;`;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { email },
@@ -121,7 +121,7 @@ export const passwordCorrect = async (accountId: any, password: string): Promise
 };
 
 const getAccountPassword = async (accountId: string): Promise<any> => {
-  const query = `SELECT password FROM account WHERE id = :accountId`
+  const query = `SELECT password FROM accounts WHERE id = :accountId`
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { accountId },

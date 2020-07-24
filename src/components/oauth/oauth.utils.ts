@@ -21,9 +21,9 @@ export const authenticateUser = async (username: any, password: any): Promise<OA
 
 const getAuthenticatedUser = async (username: any, password: any): Promise<Account> => {
   const query = `
-    SELECT account.id, account.email, role.role, account.name, account.password
-    FROM role
-    RIGHT JOIN account ON account.role_id = role.id
+    SELECT accounts.id, accounts.email, roles.role, accounts.name, accounts.password
+    FROM roles
+    RIGHT JOIN accounts ON accounts.role_id = roles.id
     WHERE email = :email;
   `;
   

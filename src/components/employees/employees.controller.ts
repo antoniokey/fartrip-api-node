@@ -1,5 +1,5 @@
 import express from 'express';
-import { create, index, getOne, updateOne, getOrders, getOrder } from './employees.handlers';
+import { create, index, getOne, updateOne, getOrders, getOrder, getComments } from './employees.handlers';
 import { hashPasswordMiddleware } from '../../common/middlewares/hash-password.middlewares';
 import { accountExistsMiddleware, updatePasswordDataMiddleware } from '../../common/middlewares/account.middlewares';
 import { authorizationMiddleware } from '../../common/middlewares/auth.middlewares';
@@ -13,6 +13,7 @@ export default () => {
     .get('/:id', authorizationMiddleware, getOne)
     .get('/:id/orders', authorizationMiddleware, getOrders)
     .get('/:id/orders/:orderId', authorizationMiddleware, getOrder)
+    .get('/:id/comments', authorizationMiddleware, getComments)
     .post('/', accountExistsMiddleware, hashPasswordMiddleware, create)
     .patch('/:id', authorizationMiddleware, updatePasswordDataMiddleware, updateCarDataMiddleware, updateOne);
 

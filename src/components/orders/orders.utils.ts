@@ -7,7 +7,7 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
   const userId = await getUserIdByAccountId(userAccountId);
   const employeeId = await getEmployeeIdByAccountId(employeeAccountId);
   const query = `
-    INSERT INTO far_trip.order
+    INSERT INTO far_trip.orders
       (user_id, employee_id, departure, destination, distance, cost, spend_time, created_date_time, modified_date_time, status, time, date, user_notes)
     VALUES (?);
   `;

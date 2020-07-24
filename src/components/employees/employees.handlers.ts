@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
 import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
-import { getEmployees, getEmployee, updateEmployee, getOrdersData, getOrderData } from './employees.utils';
+import { getEmployees, getEmployee, updateEmployee, getOrdersData, getOrderData, getCommentsData } from './employees.utils';
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
@@ -32,6 +32,13 @@ export const getOrder = (req: Request, res: Response): Promise<any> => {
 
   return getOrderData(id, orderId)
     .then(data => httpSuccess(res, data));
+};
+
+export const getComments = (req: Request, res: Response): Promise<any> => {
+  const { id } = req.params;
+
+  return getCommentsData(id)
+    .then(data => httpSuccess(res, data))
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {
