@@ -3,6 +3,22 @@ import db from '../../db/config/db.config';
 import { QueryTypes } from 'sequelize';
 import { OrderStatus } from '../../common/enums/order.status';
 
+const getOrderStatus = (status: string): OrderStatus => {
+  let result;
+
+  if (status === OrderStatus.Canceled) {
+    result =  OrderStatus.Canceled;
+  } else if (status === OrderStatus.Completed) {
+    result = OrderStatus.Completed;
+  } else if (status === OrderStatus.New) {
+    result = OrderStatus.New;
+  } else {
+    result = OrderStatus.InProgress;
+  }
+  
+  return result;
+};
+
 export const createOrder = async (order: any, userAccountId: string, employeeAccountId: string): Promise<any> => {
   const userId = await getUserIdByAccountId(userAccountId);
   const employeeId = await getEmployeeIdByAccountId(employeeAccountId);
@@ -30,6 +46,14 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
         order.userNotes
       ]
     ]
+  });
+};
+
+export const updateOrderStatus = async (orderId: string, status: string): Promise<any> => {
+  const query = 'UPDATE orders SET status = :status WHERE id = :orderId';
+  await db.sequelize.query(query, {
+    type: QueryTypes.UPDATE,
+    replacements: { orderId, status: getOrderStatus(status) }
   });
 };
 
