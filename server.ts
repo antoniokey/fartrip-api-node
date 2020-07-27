@@ -9,6 +9,7 @@ import OAuthController from './src/components/oauth/oauth.controller';
 import UsersController from './src/components/users/users.controller';
 import EmployeesController from './src/components/employees/employees.controller';
 import OrdersController from './src/components/orders/orders.controller';
+import CommentsController from './src/components/comments/comments.controller';
 
 dotenv.config();
 
@@ -32,5 +33,6 @@ app.use('/oauth', OAuthController());
 app.use('/users', UsersController());
 app.use('/employees', EmployeesController());
 app.use('/orders', OrdersController());
+app.use('/comments', CommentsController());
 
 export default app;

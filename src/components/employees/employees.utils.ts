@@ -193,6 +193,7 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
 export const getCommentsData = async (accountId: string): Promise<any> => {
   const query = `
     SELECT
+      far_trip.comments.id,
       far_trip.comments.comment,
       far_trip.comments.created_date_time AS createdDate,
       far_trip.comments.user_id AS userId
@@ -207,6 +208,7 @@ export const getCommentsData = async (accountId: string): Promise<any> => {
   const commentsUserNames = await getCommentsUserNames(queryResult);
 
   const result = queryResult.map((commentItem: any, index: number) => ({
+    id: commentItem.id,
     comment: commentItem.comment,
     createdDate: commentItem.createdDate,
     userName: flatten(commentsUserNames)[index].name
