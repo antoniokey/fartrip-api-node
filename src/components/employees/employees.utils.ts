@@ -154,7 +154,8 @@ export const getOrdersData = async (id: string): Promise<any> => {
     FROM far_trip.employees
     INNER JOIN far_trip.accounts ON far_trip.employees.account_id = far_trip.accounts.id
     INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employees.id
-    WHERE far_trip.accounts.id = :accountId;
+    WHERE far_trip.accounts.id = :accountId
+    ORDER BY far_trip.orders.status;
   `;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
