@@ -242,16 +242,16 @@ export const updateCarData = async (accountId: string, data: any): Promise<any> 
   });
 };
 
-export const saveEmployee = async (accountId: number, status: EmployeeStatus = EmployeeStatus.OutOfWork, rating: number = 0.0): Promise<void> => {
+export const saveEmployee = async (accountId: any, employeeData: any): Promise<void> => {
   return db.sequelize.transaction<void>(async (transaction: Transaction) => {
     const query = `
-      INSERT INTO employees (account_id, status, rating, created_date_time, modified_date_time)
+      INSERT INTO employees (account_id, status, rating, created_date_time, modified_date_time, work_description, cost_per_km)
       VALUES (?);
     `;
     const queryResult = await db.sequelize.query(query, {
       type: QueryTypes.INSERT,
       replacements: [
-        [accountId, status, rating, new Date(), new Date()]
+        [accountId, EmployeeStatus.OutOfWork, 0.0, new Date(), new Date(), employeeData.workDescription, employeeData.costPerKm]
       ],
       transaction
     });

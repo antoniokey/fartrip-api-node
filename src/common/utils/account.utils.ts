@@ -20,7 +20,7 @@ export const createAccount = async (accountData: Account): Promise<void> => {
   if (accountData.role === Role.User) {
     await saveUser(savedAccount[0]);
   } else {
-    await saveEmployee(savedAccount[0]);
+    await saveEmployee(savedAccount[0], accountData);
   }
 };
 

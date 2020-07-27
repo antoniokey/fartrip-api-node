@@ -7,4 +7,6 @@ export interface Account {
   role: Role;
   name: string;
   age: number;
+  costPerKm?: number;
+  workDescription?: string;
 }

@@ -42,9 +42,9 @@ export const getComments = (req: Request, res: Response): Promise<any> => {
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {
-  const { email, password, name, age, role } = req.body;
+  const { email, password, name, age, role, costPerKm, workDescription } = req.body;
 
-  return createAccount({ email, password, name, age, role })
+  return createAccount({ email, password, name, age, role, costPerKm, workDescription })
     .then(() => httpNoContent(res));
 };
 
