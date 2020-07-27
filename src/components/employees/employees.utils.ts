@@ -266,7 +266,7 @@ const saveCar = async (employee_id: number): Promise<void> => {
       INSERT INTO cars (employee_id, created_date_time, modified_date_time)
       VALUES (?);
     `;
-    db.sequelize.query(query, {
+    await db.sequelize.query(query, {
       type: QueryTypes.INSERT,
       replacements: [
         [employee_id, new Date(), new Date()]
