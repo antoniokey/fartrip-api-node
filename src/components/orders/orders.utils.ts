@@ -33,3 +33,11 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
   });
 };
 
+export const removeOrder = async (orderId: string): Promise<any> => {
+  const query = `DELETE FROM orders WHERE id = :orderId;`;
+  
+  await db.sequelize.query(query, {
+    type: QueryTypes.DELETE,
+    replacements: { orderId }
+  });
+};

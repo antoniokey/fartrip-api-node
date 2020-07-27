@@ -106,6 +106,7 @@ export const getEmployee = async (accountId: any): Promise<any> => {
       accounts.email,
       accounts.age,
       employees.status,
+      employees.cost_per_km,
       employees.rating,
       employees.work_description,
       cars.model,
@@ -129,6 +130,7 @@ export const getEmployee = async (accountId: any): Promise<any> => {
       age: queryResult.age,
       status: queryResult.status,
       rating: queryResult.rating,
+      costPerKm: queryResult.cost_per_km,
       workDescription: queryResult.work_description,
       car: { model: queryResult.model, note: queryResult.note }
     };
@@ -151,7 +153,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
       far_trip.orders.spend_time AS spendTime
     FROM far_trip.employees
     INNER JOIN far_trip.accounts ON far_trip.employees.account_id = far_trip.accounts.id
-    INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employee.sid
+    INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employees.id
     WHERE far_trip.accounts.id = :accountId;
   `;
   const queryResult = await db.sequelize.query(query, {
