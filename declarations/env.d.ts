@@ -15,5 +15,7 @@ declare namespace NodeJS {
     JWT_SECRET: string;
     CLIENT_ID: string;
     CLIENT_SECRET: string;
+    NODEMAILER_EMAIL: string;
+    NODEMAILER_PASSWORD: string;
   }
 }

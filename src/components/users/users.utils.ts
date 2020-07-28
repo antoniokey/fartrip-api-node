@@ -16,9 +16,9 @@ const getOrderEmployeeId = async (orderId: string): Promise<number> => {
   return queryResult.employee_id;
 };
 
-const getOrderEmployeeName = async (employeeId: number): Promise<string> => {
+const getOrderEmployee = async (employeeId: number): Promise<any> => {
   const query = `
-    SELECT accounts.name
+    SELECT accounts.name, accounts.email
     FROM employees
     INNER JOIN accounts ON employees.account_id = accounts.id
     WHERE employees.id = :employeeId;
@@ -30,7 +30,7 @@ const getOrderEmployeeName = async (employeeId: number): Promise<string> => {
     plain: true
   });
 
-  return queryResult.name;
+  return queryResult;
 };
 
 export const getUsers = async (): Promise<object[]> => {
@@ -99,11 +99,12 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     plain: true
   });
   const employeeId = await getOrderEmployeeId(orderId);
-  const employeeName = await getOrderEmployeeName(employeeId);
+  const employee = await getOrderEmployee(employeeId);
 
   return {
     ...queryResult,
-    name: employeeName
+    name: employee.name,
+    email: employee.email
   };
 };
 
