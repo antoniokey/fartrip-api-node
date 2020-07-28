@@ -19,9 +19,9 @@ const getOrderUserId = async (orderId: string): Promise<number> => {
   return queryResult.user_id;
 };
 
-const getOrderUserName = async (userId: number): Promise<string> => {
+const getOrderUser = async (userId: number): Promise<any> => {
   const query = `
-    SELECT accounts.name
+    SELECT accounts.name, accounts.email
     FROM users
     INNER JOIN accounts ON users.account_id = accounts.id
     WHERE users.id = :userId;
@@ -32,7 +32,7 @@ const getOrderUserName = async (userId: number): Promise<string> => {
     plain: true
   });
 
-  return queryResult.name;
+  return queryResult;
 };
 
 const getCommentsUserNames = (comments: any[]) => {
@@ -185,9 +185,9 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     plain: true
   });
   const userId = await getOrderUserId(orderId);
-  const userName = await getOrderUserName(userId);
+  const user = await getOrderUser(userId);
 
-  return { ...queryResult, name: userName };
+  return { ...queryResult, name: user.name, email: user.email };
 };
 
 export const getCommentsData = async (accountId: string): Promise<any> => {
