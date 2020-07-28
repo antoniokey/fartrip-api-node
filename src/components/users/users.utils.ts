@@ -1,5 +1,6 @@
 import db from '../../db/config/db.config';
 import { QueryTypes, Transaction } from 'sequelize';
+import { getOrderRoutePoints } from '../orders/orders.utils';
 
 const getOrderEmployeeId = async (orderId: string): Promise<number> => {
   const query = `
@@ -82,6 +83,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
 export const getOrderData = async (accountId: string, orderId: string): Promise<any> => {
   const query = `
     SELECT
+      far_trip.orders.id,
       far_trip.orders.departure,
       far_trip.orders.destination,
       far_trip.orders.distance,
@@ -93,19 +95,16 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     INNER JOIN far_trip.orders ON far_trip.orders.user_id = far_trip.users.id
     WHERE far_trip.accounts.id = :accountId AND far_trip.orders.id = :orderId;
   `;
-  const queryResult = await db.sequelize.query(query, {
+  const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { accountId: +accountId, orderId: +orderId },
     plain: true
   });
   const employeeId = await getOrderEmployeeId(orderId);
   const employee = await getOrderEmployee(employeeId);
+  const orderRoutePoints = await getOrderRoutePoints(queryResult.id);
 
-  return {
-    ...queryResult,
-    name: employee.name,
-    email: employee.email
-  };
+  return { ...queryResult, routePoints: orderRoutePoints, name: employee.name, email: employee.email };
 };
 
 export const saveUser = async (accountId: number): Promise<void> => {

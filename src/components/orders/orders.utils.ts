@@ -4,6 +4,52 @@ import { QueryTypes } from 'sequelize';
 import { OrderStatus } from '../../common/enums/order.status';
 import { EmailEmployeeSubject, EmailEmployeeText, EmailUserSubject, EmailUserText } from '../../common/enums/email.enum';
 import { Role } from '../../common/enums/role.enum';
+import { getPointsBetweenTwoPlaces } from '../../common/utils/map.utils';
+import { Transaction } from 'sequelize';
+
+const saveOrderRoutePoints = async (orderId: number, pointsBetweenTwoPlaces: any[]): Promise<any> => {
+  const routePoints = pointsBetweenTwoPlaces.map(pointsPair => [orderId, pointsPair, new Date(), new Date()]);
+  let queryValuesTemplate: string;
+
+  queryValuesTemplate = pointsBetweenTwoPlaces.reduce<string>(acc => acc + '(?), ', '');
+  queryValuesTemplate = queryValuesTemplate.slice(0, queryValuesTemplate.length - 2);
+
+  return db.sequelize.transaction<void>(async (transaction: Transaction) => {
+    const query = `
+      INSERT INTO orders_route_points (order_id, route_points, created_date_time, modified_date_time)
+      VALUES ${queryValuesTemplate}
+    `;
+    await db.sequelize.query(query, {
+      type: QueryTypes.INSERT,
+      replacements: routePoints,
+      transaction
+    });
+  });
+};
+
+const prepareRoutePoints = (routePoints: any[]): any[] => {
+  return routePoints.map((pointsPair: any) => {
+    const pointsAsAnArray = pointsPair.points.split(', ');
+    const convertedRoutePoints = [+pointsAsAnArray[0], +pointsAsAnArray[1]];
+
+    return convertedRoutePoints;
+  });
+};
+
+export const getOrderRoutePoints = async (orderId: number): Promise<any[]> => {
+  const query = `
+    SELECT route_points AS points
+    FROM orders_route_points
+    WHERE order_id = :orderId;
+  `;
+  const queryResult = await db.sequelize.query(query, {
+    type: QueryTypes.SELECT,
+    replacements: { orderId }
+  });
+  const routePoints = prepareRoutePoints(queryResult);
+
+  return routePoints;
+};
 
 export const getOrderStatus = (status: string): OrderStatus => {
   let result;
@@ -24,12 +70,13 @@ export const getOrderStatus = (status: string): OrderStatus => {
 export const createOrder = async (order: any, userAccountId: string, employeeAccountId: string): Promise<any> => {
   const userId = await getUserIdByAccountId(userAccountId);
   const employeeId = await getEmployeeIdByAccountId(employeeAccountId);
+  const pointsBetweenTwoPlaces = await getPointsBetweenTwoPlaces(order.departure, order.destination);
   const query = `
     INSERT INTO far_trip.orders
       (user_id, employee_id, departure, destination, distance, cost, spend_time, created_date_time, modified_date_time, status, time, date, user_notes)
     VALUES (?);
   `;
-  await db.sequelize.query(query, {
+  const createdOrder = await db.sequelize.query(query, {
     type: QueryTypes.INSERT,
     replacements: [
       [
@@ -49,6 +96,9 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
       ]
     ]
   });
+  const orderId = createdOrder[0];
+
+  await saveOrderRoutePoints(orderId, pointsBetweenTwoPlaces);
 };
 
 export const updateOrderStatus = async (orderId: string, status: string): Promise<any> => {

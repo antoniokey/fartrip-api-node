@@ -17,5 +17,6 @@ declare namespace NodeJS {
     CLIENT_SECRET: string;
     NODEMAILER_EMAIL: string;
     NODEMAILER_PASSWORD: string;
+    MAP_ROUTE_URL: string;
   }
 }

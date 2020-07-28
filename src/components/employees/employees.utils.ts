@@ -3,6 +3,7 @@ import { flatten } from 'lodash';
 import { EmployeeStatus } from '../../common/enums/employee-status';;
 import db from '../../db/config/db.config';
 import { accountNotFoundErrorMessage, getEmployeeIdByAccountId, getUserIdByAccountId } from '../../common/utils/account.utils';
+import { getOrderRoutePoints } from '../orders/orders.utils';
 
 const getOrderUserId = async (orderId: string): Promise<number> => {
   const query = `
@@ -168,6 +169,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
 export const getOrderData = async (accountId: string, orderId: string): Promise<any> => {
   const query = `
     SELECT
+    far_trip.orders.id,
       far_trip.orders.departure,
       far_trip.orders.destination,
       far_trip.orders.distance,
@@ -179,15 +181,16 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employees.id
     WHERE far_trip.accounts.id = :accountId AND far_trip.orders.id = :orderId;
   `;
-  const queryResult = await db.sequelize.query(query, {
+  const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
     replacements: { accountId: +accountId, orderId: +orderId },
     plain: true
   });
   const userId = await getOrderUserId(orderId);
   const user = await getOrderUser(userId);
+  const orderRoutePoints = await getOrderRoutePoints(queryResult.id);
 
-  return { ...queryResult, name: user.name, email: user.email };
+  return { ...queryResult, routePoints: orderRoutePoints, name: user.name, email: user.email };
 };
 
 export const getCommentsData = async (accountId: string): Promise<any> => {
