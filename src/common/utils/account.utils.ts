@@ -9,9 +9,9 @@ import { HttpStatus } from '../enums/http-status.enum';
 import { AccountErrorMessage } from '../enums/account.enum';
 import { isPasswordCorrect } from './oauth.utils';
 
-export const accountExistsErrorMessage = { status: HttpStatus.BadRequest, errorMessage: AccountErrorMessage.AccountExists };
-export const incorrectPasswordErrorMessage = { status: HttpStatus.BadRequest, errorMessage: AccountErrorMessage.IncorrectPassword };
-export const accountNotFoundErrorMessage = { status: HttpStatus.NotFound, errorMessage: AccountErrorMessage.AccountNotFound };
+export const accountExistsErrorMessage = { status: HttpStatus.BadRequest, message: AccountErrorMessage.AccountExists };
+export const incorrectPasswordErrorMessage = { status: HttpStatus.BadRequest, message: AccountErrorMessage.IncorrectPassword };
+export const accountNotFoundErrorMessage = { status: HttpStatus.NotFound, message: AccountErrorMessage.AccountNotFound };
 
 export const createAccount = async (accountData: Account): Promise<void> => {
   const roleId: number = await getRoleId(accountData.role);
