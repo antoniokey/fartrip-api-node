@@ -22,7 +22,7 @@ const getOrderUserId = async (orderId: string): Promise<number> => {
 
 const getOrderUser = async (userId: number): Promise<any> => {
   const query = `
-    SELECT accounts.name, accounts.email
+    SELECT accounts.name, accounts.email, accounts.logo
     FROM users
     INNER JOIN accounts ON users.account_id = accounts.id
     WHERE users.id = :userId;
@@ -84,6 +84,7 @@ export const getEmployees = async (): Promise<object[]> => {
       accounts.email,
       accounts.name,
       accounts.age,
+      accounts.logo,
       employees.status,
       employees.rating,
       cars.model,
@@ -110,8 +111,10 @@ export const getEmployee = async (accountId: any): Promise<any> => {
       employees.cost_per_km,
       employees.rating,
       employees.work_description,
+      accounts.logo,
       cars.model,
-      cars.note
+      cars.note,
+      cars.image
     FROM employees
     INNER JOIN accounts ON employees.account_id = accounts.id
     INNER JOIN cars ON cars.employee_id = employees.id
@@ -129,11 +132,12 @@ export const getEmployee = async (accountId: any): Promise<any> => {
       name: queryResult.name,
       email: queryResult.email,
       age: queryResult.age,
+      logo: queryResult.logo,
       status: queryResult.status,
       rating: queryResult.rating,
       costPerKm: queryResult.cost_per_km,
       workDescription: queryResult.work_description,
-      car: { model: queryResult.model, note: queryResult.note }
+      car: { model: queryResult.model, note: queryResult.note, image: queryResult.image }
     };
   }
 
@@ -169,7 +173,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
 export const getOrderData = async (accountId: string, orderId: string): Promise<any> => {
   const query = `
     SELECT
-    far_trip.orders.id,
+      far_trip.orders.id,
       far_trip.orders.departure,
       far_trip.orders.destination,
       far_trip.orders.distance,
@@ -190,7 +194,7 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
   const user = await getOrderUser(userId);
   const orderRoutePoints = await getOrderRoutePoints(queryResult.id);
 
-  return { ...queryResult, routePoints: orderRoutePoints, name: user.name, email: user.email };
+  return { ...queryResult, routePoints: orderRoutePoints, name: user.name, email: user.email, logo: user.logo };
 };
 
 export const getCommentsData = async (accountId: string): Promise<any> => {
@@ -334,5 +338,40 @@ export const updateEmployee = async (accountId: string, data: any): Promise<any>
     });
 
     return queryResult;
+  });
+};
+
+export const updateEmployeeCar = async (accountId: string, image: Buffer) => {
+  return db.sequelize.transaction(async () => {
+    const query = `
+      UPDATE accounts
+      INNER JOIN employees ON employees.account_id = accounts.id
+      INNER JOIN cars ON cars.employee_id = employees.id
+      SET cars.image = ?, cars.modified_date_time = ?
+      WHERE accounts.id = ?;
+    `;
+
+    await db.sequelize.query(query, {
+      type: QueryTypes.UPDATE,
+      replacements: [image, new Date(), accountId]
+    });
+
+    return image;
+  });
+};
+
+export const removeEmployeeCar = async (accountId: string): Promise<any> => {
+  return db.sequelize.transaction(async () => {
+    const query = `
+      UPDATE cars
+      SET cars.image = NULL
+      INNER JOIN employees ON employees.id = cars.employee_id
+      INNER JOIN accounts ON accounts.id = employees.account_id
+      WHERE accounts.id = ?;
+    `;
+    await db.sequelize.query(query, {
+      type: QueryTypes.UPDATE,
+      replacements: { accountId }
+    });
   });
 };

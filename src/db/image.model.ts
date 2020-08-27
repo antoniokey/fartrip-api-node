@@ -1,6 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
 import db from './config/db.config';
-import Account from './account.model';
 
 class Image extends Model {}
 

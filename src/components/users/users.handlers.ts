@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { httpNoContent, httpSuccess } from '../../common/utils/http.utils';
+import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
 import { createAccount } from '../../common/utils/account.utils';
 import { getUsers, getUser, updateUser, getOrdersData, getOrderData } from './users.utils';
 
@@ -12,7 +12,12 @@ export const getOne = (req: Request, res: Response): Promise<any> => {
   const { id } = req.params;
 
   return getUser(id)
-  .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch(err => {
+      if (err.status === 404) {
+        return httpNotFound(res, err);
+      }
+    });
 };
 
 export const getOrders = (req: Request, res: Response): Promise<any> => {

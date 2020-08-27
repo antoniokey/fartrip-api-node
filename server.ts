@@ -10,6 +10,7 @@ import UsersController from './src/components/users/users.controller';
 import EmployeesController from './src/components/employees/employees.controller';
 import OrdersController from './src/components/orders/orders.controller';
 import CommentsController from './src/components/comments/comments.controller';
+import AccountsController from './src/components/accounts/accounts.controller';
 
 dotenv.config();
 
@@ -27,9 +28,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ origin: process.env.DEV_ORIGIN }));
-app.use(multer().any());
+app.use(multer().single('logo'));
 
 app.use('/oauth', OAuthController());
+app.use('/accounts', AccountsController());
 app.use('/users', UsersController());
 app.use('/employees', EmployeesController());
 app.use('/orders', OrdersController());
