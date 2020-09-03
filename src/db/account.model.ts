@@ -3,7 +3,6 @@ import db from './config/db.config';
 import User from './user.model';
 import Employee from './employee.model';
 import Image from './image.model';
-import Logo from './logo.model';
 
 class Account extends Model {}
 
@@ -64,10 +63,8 @@ Account.init(
 Account.hasOne(User, { foreignKey: 'accountId' });
 Account.hasOne(Employee, { foreignKey: 'accountId' });
 Account.hasOne(Image, { foreignKey: 'accountId' });
-Account.hasOne(Logo, { foreignKey: 'accountId' })
 User.belongsTo(Account);
 Employee.belongsTo(Account);
 Image.belongsTo(Account);
-Logo.belongsTo(Account);
 
 export default Account;

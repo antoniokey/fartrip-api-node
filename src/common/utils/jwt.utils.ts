@@ -1,12 +1,12 @@
 import jwt, { TokenExpiredError } from 'jsonwebtoken';
 import { AccessToken, RefreshToken } from '../models/jwt.model';
 
-const getAccessTokenPayload = (): AccessToken => ({
+export const getAccessTokenPayload = (): AccessToken => ({
   exp: Math.floor(Date.now() / 1000) + (10 * 60),
   sub: 'fartrip',
 });
 
-const getRefreshTokenPayload = (): RefreshToken => ({
+export const getRefreshTokenPayload = (): RefreshToken => ({
   exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
 });
 

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="75bbd24d-fd58-41fb-a4d3-f65353e2ec25" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test/utils/jwt.utils.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/utils/jwt.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/jwt.utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/account.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/account.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/config/db.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/config/db.config.ts" afterDir="false" />
+    </list>
+    <list id="a14ce04a-dc28-45c2-8dc7-c4fab67f19db" name="mypatch" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ginBl2BzujmMjISSvHzjLy5zL5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="75bbd24d-fd58-41fb-a4d3-f65353e2ec25" name="Default Changelist" comment="" />
+      <changelist id="a14ce04a-dc28-45c2-8dc7-c4fab67f19db" name="mypatch" comment="" />
+      <created>1598606146280</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1598606146280</updated>
+      <workItem from="1598606147337" duration="2094000" />
+      <workItem from="1598608355299" duration="1576000" />
+      <workItem from="1598865522244" duration="1584000" />
+      <workItem from="1599054628584" duration="6365000" />
+      <workItem from="1599127219183" duration="18000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2611" y="382" key="#Notifications" timestamp="1598606499457">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2611" y="382" key="#Notifications/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598606499457" />
+    <state x="2344" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598606436148">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2344" y="213" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598606436148" />
+    <state width="1878" height="290" key="GridCell.Tab.0.bottom" timestamp="1599125627028">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="290" key="GridCell.Tab.0.bottom/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125627028" />
+    <state width="1878" height="290" key="GridCell.Tab.0.center" timestamp="1599125627027">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="290" key="GridCell.Tab.0.center/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125627027" />
+    <state width="1878" height="290" key="GridCell.Tab.0.left" timestamp="1599125627027">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="290" key="GridCell.Tab.0.left/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125627027" />
+    <state width="1878" height="290" key="GridCell.Tab.0.right" timestamp="1599125627027">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state width="1878" height="290" key="GridCell.Tab.0.right/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125627027" />
+    <state x="2389" y="190" key="SettingsEditor" timestamp="1598608349587">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2389" y="190" key="SettingsEditor/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598608349587" />
+    <state x="2545" y="256" key="run.anything.popup" timestamp="1598606465892">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2545" y="256" key="run.anything.popup/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598606465892" />
+    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599125198999">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125198999" />
+    <state x="2585" y="314" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1598607148887">
+      <screen x="1920" y="23" width="1920" height="1057" />
+    </state>
+    <state x="2585" y="314" key="vcs.ApplyPatchDifferentiatedDialog/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598607148887" />
+  </component>
+</project>
