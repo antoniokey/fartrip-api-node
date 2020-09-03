@@ -1,7 +1,17 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
 import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
-import { getEmployees, getEmployee, updateEmployee, getOrdersData, getOrderData, getCommentsData, createCommentData, updateEmployeeCar, removeEmployeeCar } from './employees.utils';
+import {
+  getEmployees,
+  getEmployee,
+  updateEmployee,
+  getOrdersData,
+  getOrderData,
+  getCommentsData,
+  createCommentData,
+  updateEmployeeCar,
+  removeEmployeeCar
+} from './employees.utils';
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
