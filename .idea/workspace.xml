@@ -26,13 +26,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75bbd24d-fd58-41fb-a4d3-f65353e2ec25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test/utils/jwt.utils.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/utils/jwt.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/jwt.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/account.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/account.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/config/db.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/config/db.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/jest.config.js" afterDir="false" />
     </list>
     <list id="a14ce04a-dc28-45c2-8dc7-c4fab67f19db" name="mypatch" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,7 +76,7 @@
       <workItem from="1598608355299" duration="1576000" />
       <workItem from="1598865522244" duration="1584000" />
       <workItem from="1599054628584" duration="6365000" />
-      <workItem from="1599127219183" duration="18000" />
+      <workItem from="1599127219183" duration="613000" />
     </task>
     <servers />
   </component>
