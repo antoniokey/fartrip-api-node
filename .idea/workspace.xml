@@ -26,35 +26,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75bbd24d-fd58-41fb-a4d3-f65353e2ec25" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/accounts.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/comments.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/employees.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/oauth.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/orders.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/constants/error-messages/users.error-messages.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/enums/comment.enum.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/enums/employee.enum.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/enums/user.enum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/employee-status.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/http-status.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/http.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/oauth-error-message.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/oauth.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/order.status.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/order.enum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/middlewares/account.middlewares.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/middlewares/account.middlewares.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/middlewares/auth.middlewares.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/middlewares/auth.middlewares.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/models/error.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/models/error.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/utils/account.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/account.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/utils/http.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/http.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/utils/oauth.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/oauth.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employees/employees.handlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employees/employees.handlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employees/employees.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employees/employees.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.handlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.handlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.middlewares.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.middlewares.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/orders/orders.handlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/orders/orders.handlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/orders/orders.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/orders/orders.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/users.handlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/users.handlers.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/users.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/users.utils.ts" afterDir="false" />
     </list>
     <list id="a14ce04a-dc28-45c2-8dc7-c4fab67f19db" name="mypatch" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +109,7 @@
       <workItem from="1599145510177" duration="598000" />
       <workItem from="1599206872722" duration="680000" />
       <workItem from="1599209223145" duration="91000" />
-      <workItem from="1599209321807" duration="7946000" />
+      <workItem from="1599209321807" duration="8137000" />
     </task>
     <servers />
   </component>
@@ -259,11 +233,11 @@
       <screen x="1920" y="23" width="1920" height="1057" />
     </state>
     <state x="2545" y="256" key="run.anything.popup/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1598606465892" />
-    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599220848190">
+    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup" timestamp="1599224509317">
       <screen x="1920" y="23" width="1920" height="1057" />
     </state>
     <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1920.1003/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599125198999" />
-    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1920.1007/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599220848190" />
+    <state x="2545" y="258" width="670" height="676" key="search.everywhere.popup/0.23.1920.1007/1920.23.1920.1057@1920.23.1920.1057" timestamp="1599224509317" />
     <state x="2585" y="314" key="vcs.ApplyPatchDifferentiatedDialog" timestamp="1598607148887">
       <screen x="1920" y="23" width="1920" height="1057" />
     </state>
