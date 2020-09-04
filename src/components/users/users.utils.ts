@@ -119,7 +119,7 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     plain: true
   });
 
-  if (!queryResult.length) {
+  if (!queryResult) {
     return Promise.reject(orderNotFoundError);
   }
 
