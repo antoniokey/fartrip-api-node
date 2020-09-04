@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { httpUnauthorized } from '../utils/http.utils';
 import { checkTokenValidity, isExpiredTokenError } from '../utils/jwt.utils';
 import {
-  missingAuthHeaderErrorMessage,
+  accessTokenExpiredErrorMessage,
   incorrectAuthHeaderErrorMessage,
-  accessTokenExpiredErrorMessage
-} from '../utils/oauth.utils';
+  missingAuthHeaderErrorMessage
+} from '../constants/error-messages/oauth.error-messages';
 
 export const authorizationMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   const header = req.headers.authorization;

@@ -1,6 +1,10 @@
 import { NextFunction, Response, Request } from 'express';
-import { isAccountExist, accountExistsErrorMessage, passwordCorrect, updateAccountPassword, incorrectPasswordErrorMessage } from '../utils/account.utils';
+import { isAccountExist, passwordCorrect, updateAccountPassword } from '../utils/account.utils';
 import { httpBadRequest, httpNoContent } from '../utils/http.utils';
+import {
+  accountExistsErrorMessage,
+  incorrectPasswordErrorMessage
+} from '../constants/error-messages/accounts.error-messages';
 
 export const accountExistsMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   const { email } = req.body;

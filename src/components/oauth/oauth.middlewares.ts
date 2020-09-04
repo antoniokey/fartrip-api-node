@@ -3,43 +3,43 @@ import { Request, Response, NextFunction } from 'express';
 import { httpUnauthorized, httpSuccess } from '../../common/utils/http.utils';
 import { checkTokenValidity, isExpiredTokenError, generateAccessToken } from '../../common/utils/jwt.utils';
 import {
-  missingAuthHeaderErrorMessage,
-  incorrectAuthHeaderErrorMessage,
-  missingGrantTypeErrorMessage,
-  incorrectGrantTypeErrorMessage,
-  missingCredentialsErrorMessage,
-  missingRefreshTokenErrorMessage,
-  refreshTokenExpiredErrorMessage,
-  incorrectClientErrorMessage
-} from '../../common/utils/oauth.utils';
+  incorrectAuthHeaderError,
+  incorrectClientError,
+  incorrectGrantTypeError,
+  missingAuthHeaderError,
+  missingCredentialsError,
+  missingGrantTypeError,
+  missingRefreshTokenError,
+  refreshTokenExpiredError
+} from '../../common/constants/error-messages/oauth.error-messages';
 
 export const oauthTokenMiddleware = (req: Request, res: Response, next: NextFunction): Response<any> | void  => {
   const { grant_type, username, password } = req.query;
   const header = req.headers['authorization'];
 
   if (!grant_type) {
-    return httpUnauthorized(res, missingGrantTypeErrorMessage);
+    return httpUnauthorized(res, missingGrantTypeError);
   }
   if (grant_type === 'refresh_token') {
     return next();
   }
   if (grant_type !== 'password') {
-    return httpUnauthorized(res, incorrectGrantTypeErrorMessage);
+    return httpUnauthorized(res, incorrectGrantTypeError);
   }
   if (!header) {
-    return httpUnauthorized(res, missingAuthHeaderErrorMessage);
+    return httpUnauthorized(res, missingAuthHeaderError);
   }
   if (!header.startsWith('Basic ')) {
-    return httpUnauthorized(res, incorrectAuthHeaderErrorMessage);
+    return httpUnauthorized(res, incorrectAuthHeaderError);
   }
   
   const utf8Header = atob(header.replace('Basic ', ''));
   if (utf8Header !== `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`) {
-    return httpUnauthorized(res, incorrectClientErrorMessage);
+    return httpUnauthorized(res, incorrectClientError);
   }
 
   if (!username || !password) {
-    return httpUnauthorized(res, missingCredentialsErrorMessage);
+    return httpUnauthorized(res, missingCredentialsError);
   }
 
   next();
@@ -49,16 +49,16 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
   const { grant_type, refresh_token } = req.query;
 
   if (!grant_type) {
-    return httpUnauthorized(res, missingGrantTypeErrorMessage);
+    return httpUnauthorized(res, missingGrantTypeError);
   }
   if (grant_type === 'password') {
     return next();
   }
   if (grant_type !== 'refresh_token') {
-    return httpUnauthorized(res, incorrectGrantTypeErrorMessage);
+    return httpUnauthorized(res, incorrectGrantTypeError);
   }
   if (!refresh_token) {
-    return httpUnauthorized(res, missingRefreshTokenErrorMessage);
+    return httpUnauthorized(res, missingRefreshTokenError);
   }
   
   try {
@@ -67,7 +67,7 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
     return httpSuccess(res, { access_token: generateAccessToken(), refresh_token });
   } catch (error) {
     if (isExpiredTokenError(error)) {
-      return httpUnauthorized(res, refreshTokenExpiredErrorMessage);
+      return httpUnauthorized(res, refreshTokenExpiredError);
     }
   }
 };

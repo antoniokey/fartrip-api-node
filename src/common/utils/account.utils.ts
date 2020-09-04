@@ -5,13 +5,9 @@ import { Role } from '../enums/role.enum';
 import { saveUser } from '../../components/users/users.utils';
 import { saveEmployee } from '../../components/employees/employees.utils';
 import { Account } from '../models/account.model';
-import { HttpStatus } from '../enums/http-status.enum';
+import { HttpStatus } from '../enums/http.enum';
 import { AccountErrorMessage } from '../enums/account.enum';
 import { isPasswordCorrect } from './oauth.utils';
-
-export const accountExistsErrorMessage = { status: HttpStatus.BadRequest, message: AccountErrorMessage.AccountExists };
-export const incorrectPasswordErrorMessage = { status: HttpStatus.BadRequest, message: AccountErrorMessage.IncorrectPassword };
-export const accountNotFoundErrorMessage = { status: HttpStatus.NotFound, message: AccountErrorMessage.AccountNotFound };
 
 export const createAccount = async (accountData: Account): Promise<void> => {
   const roleId: number = await getRoleId(accountData.role);

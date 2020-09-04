@@ -1,7 +1,9 @@
 import db from '../../db/config/db.config';
 import { QueryTypes, Transaction } from 'sequelize';
 import { getOrderRoutePoints } from '../orders/orders.utils';
-import { accountNotFoundErrorMessage } from '../../common/utils/account.utils';
+import { accountNotFoundError } from '../../common/constants/error-messages/accounts.error-messages';
+import { orderNotFoundError, ordersNotFoundError} from '../../common/constants/error-messages/orders.error-messages';
+import { usersNotFoundError } from '../../common/constants/error-messages/users.error-messages';
 
 const getOrderEmployeeId = async (orderId: string): Promise<number> => {
   const query = `
@@ -41,6 +43,10 @@ export const getUsers = async (): Promise<object[]> => {
     type: QueryTypes.SELECT
   });
 
+  if (!queryResult.length) {
+    return Promise.reject(usersNotFoundError);
+  }
+
   return queryResult;
 };
 
@@ -56,7 +62,7 @@ export const getUser = async (accoundId: string): Promise<any> => {
   });
 
   if (!queryResult) {
-    return Promise.reject(accountNotFoundErrorMessage);
+    return Promise.reject(accountNotFoundError);
   }
 
   return queryResult;
@@ -85,6 +91,10 @@ export const getOrdersData = async (id: string): Promise<any> => {
     replacements: { accountId: +id }
   });
 
+  if (!queryResult.length) {
+    return Promise.reject(ordersNotFoundError);
+  }
+
   return queryResult;
 };
 
@@ -108,6 +118,11 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     replacements: { accountId: +accountId, orderId: +orderId },
     plain: true
   });
+
+  if (!queryResult.length) {
+    return Promise.reject(orderNotFoundError);
+  }
+
   const employeeId = await getOrderEmployeeId(orderId);
   const employee = await getOrderEmployee(employeeId);
   const orderRoutePoints = await getOrderRoutePoints(queryResult.id);

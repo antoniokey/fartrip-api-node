@@ -9,7 +9,7 @@ import {
   getOrderStatus
 } from './orders.utils';
 import { sendEmail } from '../../common/utils/nodemailer.utils';
-import { OrderStatus } from '../../common/enums/order.status';
+import { OrderStatus } from '../../common/enums/order.enum';
 import { Role } from '../../common/enums/role.enum';
 
 export const create = (req: Request, res: Response): Promise<any> => {

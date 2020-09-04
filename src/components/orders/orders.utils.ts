@@ -1,7 +1,7 @@
 import { getUserIdByAccountId, getEmployeeIdByAccountId } from '../../common/utils/account.utils';
 import db from '../../db/config/db.config';
 import { QueryTypes } from 'sequelize';
-import { OrderStatus } from '../../common/enums/order.status';
+import { OrderStatus } from '../../common/enums/order.enum';
 import { EmailEmployeeSubject, EmailEmployeeText, EmailUserSubject, EmailUserText } from '../../common/enums/email.enum';
 import { Role } from '../../common/enums/role.enum';
 import { getPointsBetweenTwoPlaces } from '../../common/utils/map.utils';

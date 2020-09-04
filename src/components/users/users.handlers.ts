@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
-import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
+import { httpNoContent, httpSuccess, handleHttpError } from '../../common/utils/http.utils';
 import { createAccount } from '../../common/utils/account.utils';
 import { getUsers, getUser, updateUser, getOrdersData, getOrderData } from './users.utils';
+import { ErrorMesage } from "../../common/models/error.model";
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getUsers()
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOne = (req: Request, res: Response): Promise<any> => {
@@ -13,25 +15,23 @@ export const getOne = (req: Request, res: Response): Promise<any> => {
 
   return getUser(id)
     .then(data => httpSuccess(res, data))
-    .catch(err => {
-      if (err.status === 404) {
-        return httpNotFound(res, err);
-      }
-    });
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOrders = (req: Request, res: Response): Promise<any> => {
   const { id } = req.params;
 
   return getOrdersData(id)
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOrder = (req: Request, res: Response): Promise<any> => {
   const { id, orderId } = req.params;
 
   return getOrderData(id, orderId)
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {

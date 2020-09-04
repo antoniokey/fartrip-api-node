@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
-import { httpNoContent, httpSuccess, httpNotFound } from '../../common/utils/http.utils';
+import { httpNoContent, httpSuccess, handleHttpError } from '../../common/utils/http.utils';
 import {
   getEmployees,
   getEmployee,
@@ -12,10 +12,12 @@ import {
   updateEmployeeCar,
   removeEmployeeCar
 } from './employees.utils';
+import { ErrorMesage } from "../../common/models/error.model";
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOne = (req: Request, res: Response): Promise<any> => {
@@ -23,25 +25,23 @@ export const getOne = (req: Request, res: Response): Promise<any> => {
   
   return getEmployee(id)
     .then(data => httpSuccess(res, data))
-    .catch(error => {
-      if (error.status === 404) {
-        return httpNotFound(res, null);
-      }
-    });
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOrders = (req: Request, res: Response): Promise<any> => {
   const { id } = req.params;
 
   return getOrdersData(id)
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getOrder = (req: Request, res: Response): Promise<any> => {
   const { id, orderId } = req.params;
 
   return getOrderData(id, orderId)
-    .then(data => httpSuccess(res, data));
+    .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const getComments = (req: Request, res: Response): Promise<any> => {
@@ -49,6 +49,7 @@ export const getComments = (req: Request, res: Response): Promise<any> => {
 
   return getCommentsData(id)
     .then(data => httpSuccess(res, data))
+    .catch((err: ErrorMesage) => handleHttpError(res, err));
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {
@@ -71,7 +72,7 @@ export const updateOne = (req: Request, res: Response): Promise<any> => {
   const { name, age, email, status } = req.body;
 
   return updateEmployee(id, { name, age, email, status })
-      .then(() => httpNoContent(res));
+    .then(() => httpNoContent(res));
 };
 
 export const updateCar = (req: Request, res: Response): Promise<any> => {
@@ -79,7 +80,7 @@ export const updateCar = (req: Request, res: Response): Promise<any> => {
   const { file } = req;
 
   return updateEmployeeCar(id, file.buffer)
-    .then(data => httpSuccess(res, data))
+    .then(data => httpSuccess(res, data));
 };
 
 export const removeCar = (req: Request, res: Response): Promise<any> => {

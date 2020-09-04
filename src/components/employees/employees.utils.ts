@@ -1,9 +1,13 @@
 import { Transaction, QueryTypes } from 'sequelize';
 import { flatten } from 'lodash';
-import { EmployeeStatus } from '../../common/enums/employee-status';;
 import db from '../../db/config/db.config';
-import { accountNotFoundErrorMessage, getEmployeeIdByAccountId, getUserIdByAccountId } from '../../common/utils/account.utils';
+import { getEmployeeIdByAccountId, getUserIdByAccountId } from '../../common/utils/account.utils';
 import { getOrderRoutePoints } from '../orders/orders.utils';
+import { accountNotFoundError } from '../../common/constants/error-messages/accounts.error-messages';
+import { commentsNotFoundError } from '../../common/constants/error-messages/comments.error-messages';
+import { EmployeeStatusEnum } from '../../common/enums/employee.enum';
+import { employeesNotFoundError } from '../../common/constants/error-messages/employees.error-messages';
+import { orderNotFoundError, ordersNotFoundError } from '../../common/constants/error-messages/orders.error-messages';
 
 const getOrderUserId = async (orderId: string): Promise<number> => {
   const query = `
@@ -97,6 +101,10 @@ export const getEmployees = async (): Promise<object[]> => {
     type: QueryTypes.SELECT
   });
 
+  if (!queryResult.length) {
+    return Promise.reject(employeesNotFoundError);
+  }
+
   return queryResult;
 };
 
@@ -126,22 +134,22 @@ export const getEmployee = async (accountId: any): Promise<any> => {
     plain: true
   });
 
-  if (queryResult) {
-    return {
-      id: queryResult.id,
-      name: queryResult.name,
-      email: queryResult.email,
-      age: queryResult.age,
-      logo: queryResult.logo,
-      status: queryResult.status,
-      rating: queryResult.rating,
-      costPerKm: queryResult.cost_per_km,
-      workDescription: queryResult.work_description,
-      car: { model: queryResult.model, note: queryResult.note, image: queryResult.image }
-    };
+  if (!queryResult.length) {
+    return Promise.reject(accountNotFoundError);
   }
 
-  return Promise.reject(accountNotFoundErrorMessage);
+  return {
+    id: queryResult.id,
+    name: queryResult.name,
+    email: queryResult.email,
+    age: queryResult.age,
+    logo: queryResult.logo,
+    status: queryResult.status,
+    rating: queryResult.rating,
+    costPerKm: queryResult.cost_per_km,
+    workDescription: queryResult.work_description,
+    car: { model: queryResult.model, note: queryResult.note, image: queryResult.image }
+  };
 };
 
 export const getOrdersData = async (id: string): Promise<any> => {
@@ -167,6 +175,10 @@ export const getOrdersData = async (id: string): Promise<any> => {
     replacements: { accountId: +id }
   });
 
+  if (!queryResult.length) {
+    return Promise.reject(ordersNotFoundError);
+  }
+
   return queryResult;
 };
 
@@ -190,6 +202,11 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
     replacements: { accountId: +accountId, orderId: +orderId },
     plain: true
   });
+
+  if (!queryResult.length) {
+    return Promise.reject(orderNotFoundError);
+  }
+
   const userId = await getOrderUserId(orderId);
   const user = await getOrderUser(userId);
   const orderRoutePoints = await getOrderRoutePoints(queryResult.id);
@@ -212,6 +229,11 @@ export const getCommentsData = async (accountId: string): Promise<any> => {
     type: QueryTypes.SELECT,
     replacements: { accountId }
   });
+
+  if (!queryResult.length) {
+    return Promise.reject(commentsNotFoundError);
+  }
+
   const commentsUserNames = await getCommentsUserNames(queryResult);
 
   const result = queryResult.map((commentItem: any, index: number) => ({
@@ -260,7 +282,7 @@ export const saveEmployee = async (accountId: any, employeeData: any): Promise<v
     const queryResult = await db.sequelize.query(query, {
       type: QueryTypes.INSERT,
       replacements: [
-        [accountId, EmployeeStatus.OutOfWork, 0.0, new Date(), new Date(), employeeData.workDescription, employeeData.costPerKm]
+        [accountId, EmployeeStatusEnum.OutOfWork, 0.0, new Date(), new Date(), employeeData.workDescription, employeeData.costPerKm]
       ],
       transaction
     });

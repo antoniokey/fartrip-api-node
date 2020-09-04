@@ -1,19 +1,20 @@
-import { userNotFoundErrorMessage, getAuthResponse } from '../../common/utils/oauth.utils';
+import { getAuthResponse } from '../../common/utils/oauth.utils';
 import db from '../../db/config/db.config';
 import { QueryTypes } from 'sequelize';
 import { OAuthTokenResponse } from '../../common/models/oauth.model'
 import { isPasswordCorrect } from '../../common/utils/oauth.utils';
 import { Account } from '../../common/models/account.model';
+import { userNotFoundError } from '../../common/constants/error-messages/oauth.error-messages';
 
 export const authenticateUser = async (username: any, password: any): Promise<OAuthTokenResponse> => {
   const authenticatedUser: Account | null = await getAuthenticatedUser(username, password);
   if (!authenticatedUser) {
-    return Promise.reject(userNotFoundErrorMessage);
+    return Promise.reject(userNotFoundError);
   }
 
   const passwordCorrect = await isPasswordCorrect(password, authenticatedUser.password);
   if (!passwordCorrect) {
-    return Promise.reject(userNotFoundErrorMessage);
+    return Promise.reject(userNotFoundError);
   }
 
   return getAuthResponse(authenticatedUser);
