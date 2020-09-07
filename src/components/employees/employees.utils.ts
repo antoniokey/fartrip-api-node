@@ -90,7 +90,6 @@ export const getEmployees = async (): Promise<object[]> => {
       accounts.age,
       accounts.logo,
       employees.status,
-      employees.rating,
       cars.model,
       cars.note
     FROM employees
@@ -117,7 +116,6 @@ export const getEmployee = async (accountId: any): Promise<any> => {
       accounts.age,
       employees.status,
       employees.cost_per_km,
-      employees.rating,
       employees.work_description,
       accounts.logo,
       cars.model,
@@ -145,7 +143,6 @@ export const getEmployee = async (accountId: any): Promise<any> => {
     age: queryResult.age,
     logo: queryResult.logo,
     status: queryResult.status,
-    rating: queryResult.rating,
     costPerKm: queryResult.cost_per_km,
     workDescription: queryResult.work_description,
     car: { model: queryResult.model, note: queryResult.note, image: queryResult.image }
