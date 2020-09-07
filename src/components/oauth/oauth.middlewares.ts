@@ -20,9 +20,6 @@ export const oauthTokenMiddleware = (req: Request, res: Response, next: NextFunc
   if (!grant_type) {
     return httpUnauthorized(res, missingGrantTypeError);
   }
-  if (grant_type === 'refresh_token') {
-    return next();
-  }
   if (grant_type !== 'password') {
     return httpUnauthorized(res, incorrectGrantTypeError);
   }
@@ -51,9 +48,6 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
   if (!grant_type) {
     return httpUnauthorized(res, missingGrantTypeError);
   }
-  if (grant_type === 'password') {
-    return next();
-  }
   if (grant_type !== 'refresh_token') {
     return httpUnauthorized(res, incorrectGrantTypeError);
   }
@@ -64,7 +58,7 @@ export const refreshTokenMiddleware = async (req: Request, res: Response, next: 
   try {
     checkTokenValidity(refresh_token);
 
-    return httpSuccess(res, { access_token: generateAccessToken(), refresh_token });
+    next();
   } catch (error) {
     if (isExpiredTokenError(error)) {
       return httpUnauthorized(res, refreshTokenExpiredError);

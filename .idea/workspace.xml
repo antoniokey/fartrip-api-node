@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -27,12 +30,12 @@
   <component name="ChangeListManager">
     <list default="true" id="75bbd24d-fd58-41fb-a4d3-f65353e2ec25" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/account.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/account.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/comment.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/comment.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/email.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/email.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/enums/oauth.enum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/enums/oauth.enum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/employees/employees.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/employees/employees.utils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/users/users.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/users/users.utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/models/oauth.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/models/oauth.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/utils/oauth.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/oauth.utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.handlers.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.handlers.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.middlewares.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.middlewares.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/oauth/oauth.utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/oauth/oauth.utils.ts" afterDir="false" />
     </list>
     <list id="a14ce04a-dc28-45c2-8dc7-c4fab67f19db" name="mypatch" comment="" />
     <option name="SHOW_DIALOG" value="false" />
