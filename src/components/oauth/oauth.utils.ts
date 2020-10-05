@@ -5,10 +5,9 @@ import { OAuthTokenResponse } from '../../common/models/oauth.model'
 import { isPasswordCorrect } from '../../common/utils/oauth.utils';
 import { Account } from '../../common/models/account.model';
 import { userNotFoundError } from '../../common/constants/error-messages/oauth.error-messages';
-import { generateAccessToken } from "../../common/utils/jwt.utils";
 
 export const authenticateUser = async (username: any, password: any): Promise<OAuthTokenResponse> => {
-  const authenticatedUser: Account | null = await getAuthenticatedUser(username, password);
+  const authenticatedUser: Account | null = await getAuthenticatedUser(username);
   if (!authenticatedUser) {
     return Promise.reject(userNotFoundError);
   }
@@ -25,7 +24,7 @@ export const refreshToken = async (refreshToken: string) => {
   return getRefreshResponse(refreshToken);
 };
 
-const getAuthenticatedUser = async (username: any, password: any): Promise<Account> => {
+const getAuthenticatedUser = async (username: any): Promise<Account> => {
   const query = `
     SELECT accounts.id, accounts.email, roles.role, accounts.name, accounts.password
     FROM roles

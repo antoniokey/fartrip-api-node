@@ -1,7 +1,7 @@
 import atob from 'atob';
 import { Request, Response, NextFunction } from 'express';
-import { httpUnauthorized, httpSuccess } from '../../common/utils/http.utils';
-import { checkTokenValidity, isExpiredTokenError, generateAccessToken } from '../../common/utils/jwt.utils';
+import { httpUnauthorized } from '../../common/utils/http.utils';
+import { checkTokenValidity, isExpiredTokenError } from '../../common/utils/jwt.utils';
 import {
   incorrectAuthHeaderError,
   incorrectClientError,
