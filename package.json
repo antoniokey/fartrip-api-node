@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "jest": "^26.4.2",
+    "sequelize-cli": "^6.2.0",
     "ts-jest": "^26.3.0",
     "ts-node-dev": "^1.0.0-pre.49"
   }

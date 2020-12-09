@@ -22,7 +22,7 @@ module.exports = {
         },
         email: {
           field: 'email',
-          type: Sequelize.STRING(20),
+          type: Sequelize.STRING(255),
           allowNull: false
         },
         password: {

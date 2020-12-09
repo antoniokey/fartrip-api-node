@@ -5,8 +5,6 @@ import { Role } from '../enums/role.enum';
 import { saveUser } from '../../components/users/users.utils';
 import { saveEmployee } from '../../components/employees/employees.utils';
 import { Account } from '../models/account.model';
-import { HttpStatus } from '../enums/http.enum';
-import { AccountErrorMessage } from '../enums/account.enum';
 import { isPasswordCorrect } from './oauth.utils';
 
 export const createAccount = async (accountData: Account): Promise<void> => {
