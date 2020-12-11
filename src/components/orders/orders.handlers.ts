@@ -17,7 +17,7 @@ export const create = (req: Request, res: Response): Promise<any> => {
 
   return createOrder(order, user.accountId, employee.accountId)
     .then(() => sendEmail(
-        process.env.NODEMAILER_EMAIL,
+        process.env.NODEMAILER_EMAIL || '',
         employee.email,
         getEmailSubject(OrderStatus.New, Role.User),
         getEmailText(OrderStatus.New, Role.User)
@@ -32,7 +32,7 @@ export const updateStatus = (req: Request, res: Response): Promise<any> => {
 
   return updateOrderStatus(id, status)
     .then(() => sendEmail(
-        process.env.NODEMAILER_EMAIL,
+        process.env.NODEMAILER_EMAIL || '',
         email,
         getEmailSubject(getOrderStatus(status), role),
         getEmailText(getOrderStatus(status), role)

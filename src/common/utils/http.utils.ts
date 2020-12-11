@@ -8,9 +8,4 @@ export const httpBadRequest = (res: Response, err: any) => res.status(HttpStatus
 export const httpUnauthorized = (res: Response, err: any) => res.status(HttpStatus.Unauthorized).json(err);
 export const httpForbidden = (res: Response, err: any) => res.status(HttpStatus.Forbidden).json(err);
 export const httpNotFound = (res: Response, err: any) => res.status(HttpStatus.NotFound).json(err);
-
-export const handleHttpError = (res: Response, err: any): any => {
-  if (err.status === 404) {
-    return httpNotFound(res, err);
-  }
-};
+export const httpInternalServerError = (res: Response, err: any) => res.status(HttpStatus.InternalServerError).json(err);

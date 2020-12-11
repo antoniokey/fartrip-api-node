@@ -4,12 +4,7 @@ import { refresh, token } from './oauth.handlers';
 
 const router = express.Router();
 
-const OAuthController = () => {
-  router
-    .post('/token', oauthTokenMiddleware, token)
-    .post('/refresh', refreshTokenMiddleware, refresh);
+router.post('/token', oauthTokenMiddleware, token);
+router.post('/refresh', refreshTokenMiddleware, refresh);
 
-  return router;
-};
-
-export default OAuthController; 
+export default router;

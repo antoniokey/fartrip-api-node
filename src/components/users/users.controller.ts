@@ -6,14 +6,11 @@ import { authorizationMiddleware } from '../../common/middlewares/auth.middlewar
 
 const router = express.Router();
 
-export default () => {
-  router
-    .get('/', authorizationMiddleware, index)
-    .get('/:id', authorizationMiddleware, getOne)
-    .get('/:id/orders', authorizationMiddleware, getOrders)
-    .get('/:id/orders/:orderId', authorizationMiddleware, getOrder)
-    .post('/', accountExistsMiddleware, hashPasswordMiddleware, create)
-    .patch('/:id', authorizationMiddleware, updatePasswordDataMiddleware, updateOne);
+router.get('/', authorizationMiddleware, index);
+router.get('/:id', authorizationMiddleware, getOne);
+router.get('/:id/orders', authorizationMiddleware, getOrders);
+router.get('/:id/orders/:orderId', authorizationMiddleware, getOrder);
+router.post('/', accountExistsMiddleware, hashPasswordMiddleware, create);
+router.patch('/:id', authorizationMiddleware, updatePasswordDataMiddleware, updateOne);
 
-  return router;
-};
+export default router;

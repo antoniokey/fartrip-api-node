@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
-import {authenticateUser, refreshToken} from './oauth.utils';
-import { httpSuccess, handleHttpError } from '../../common/utils/http.utils';
-import { ErrorMesage } from '../../common/models/error.model';
+import { authenticateUser, refreshToken } from './oauth.utils';
+import { httpSuccess } from '../../common/utils/http.utils';
+import { ApiError } from '../../../config/error-handlers';
+import { handleError } from '../../common/utils/error.util';
 
-export const token = (req: Request, res: Response): Promise<any> => {
+export const token = async (req: Request, res: Response): Promise<any> => {
   const { username, password } = req.query;
 
   return authenticateUser(username, password)
       .then((data: any) => httpSuccess(res, data))
-      .catch((err: ErrorMesage) => handleHttpError(res, err));
+      .catch((err: ApiError) => handleError(err, res));
 };
 
 export const refresh = (req: Request, res: Response): Promise<any> => {

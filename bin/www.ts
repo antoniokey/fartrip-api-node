@@ -23,5 +23,5 @@ const handleErrors = () => {
   db.sequelize.authenticate()
     .then(() => console.log('The database connection has been successfully established!'))
     .then(() => runServer())
-    .then(() => handleErrors())
+    .then(() => handleErrors());
 })();

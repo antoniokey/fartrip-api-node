@@ -18,18 +18,15 @@ import {
 
 const router = express.Router();
 
-export default () => {
-  router
-    .get('/', authorizationMiddleware, index)
-    .get('/:id', authorizationMiddleware, getOne)
-    .get('/:id/orders', authorizationMiddleware, getOrders)
-    .get('/:id/orders/:orderId', authorizationMiddleware, getOrder)
-    .get('/:id/comments', authorizationMiddleware, getComments)
-    .post('/:id/comments', authorizationMiddleware, createComment)
-    .post('/', accountExistsMiddleware, hashPasswordMiddleware, create)
-    .post('/:id/car', authorizationMiddleware, updateCar)
-    .delete('/:id/car', authorizationMiddleware, removeCar)
-    .patch('/:id', authorizationMiddleware, updatePasswordDataMiddleware, updateCarDataMiddleware, updateOne);
-
-  return router;
-};
+router.get('/', authorizationMiddleware, index);
+router.get('/:id', authorizationMiddleware, getOne);
+router.get('/:id/orders', authorizationMiddleware, getOrders);
+router.get('/:id/orders/:orderId', authorizationMiddleware, getOrder);
+router.get('/:id/comments', authorizationMiddleware, getComments);
+router.post('/:id/comments', authorizationMiddleware, createComment);
+router.post('/', accountExistsMiddleware, hashPasswordMiddleware, create);
+router.post('/:id/car', authorizationMiddleware, updateCar);
+router.delete('/:id/car', authorizationMiddleware, removeCar);
+router.patch('/:id', authorizationMiddleware, updatePasswordDataMiddleware, updateCarDataMiddleware, updateOne);
+  
+export default router;

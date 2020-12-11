@@ -1,11 +1,9 @@
-import { Router } from 'express';
+import express from 'express';
 import { authorizationMiddleware } from '../../common/middlewares/auth.middlewares';
 import { removeOne } from './comments.handlers';
 
-const router = Router();
+const router = express.Router();
 
-export default () => {
-  router.delete('/:id', authorizationMiddleware, removeOne);
+router.delete('/:id', authorizationMiddleware, removeOne);
 
-  return router;
-};
+export default router;

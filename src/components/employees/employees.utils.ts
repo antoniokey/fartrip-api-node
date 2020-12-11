@@ -3,11 +3,12 @@ import { flatten } from 'lodash';
 import db from '../../db/config/db.config';
 import { getEmployeeIdByAccountId, getUserIdByAccountId } from '../../common/utils/account.utils';
 import { getOrderRoutePoints } from '../orders/orders.utils';
-import { accountNotFoundError } from '../../common/constants/error-messages/accounts.error-messages';
-import { commentsNotFoundError } from '../../common/constants/error-messages/comments.error-messages';
-import { EmployeeStatusEnum } from '../../common/enums/employee.enum';
-import { employeesNotFoundError } from '../../common/constants/error-messages/employees.error-messages';
-import { orderNotFoundError, ordersNotFoundError } from '../../common/constants/error-messages/orders.error-messages';
+import { EmployeeErrorMessage, EmployeeStatusEnum } from '../../common/enums/employee.enum';
+import { ApiError } from '../../../config/error-handlers';
+import { HttpStatus } from '../../common/enums/http.enum';
+import { AccountErrorMessage } from '../../common/enums/account.enum';
+import { OrderErrorMessage } from '../../common/enums/order.enum';
+import { CommentErrorMessage } from '../../common/enums/comment.enum';
 
 const getOrderUserId = async (orderId: string): Promise<number> => {
   const query = `
@@ -101,7 +102,7 @@ export const getEmployees = async (): Promise<object[]> => {
   });
 
   if (!queryResult.length) {
-    return Promise.reject(employeesNotFoundError);
+    throw new ApiError(EmployeeErrorMessage.EmployeesNotFound, HttpStatus.NotFound);
   }
 
   return queryResult;
@@ -133,7 +134,7 @@ export const getEmployee = async (accountId: any): Promise<any> => {
   });
 
   if (!queryResult) {
-    return Promise.reject(accountNotFoundError);
+    throw new ApiError(AccountErrorMessage.AccountNotFound, HttpStatus.NotFound);
   }
 
   return {
@@ -173,7 +174,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
   });
 
   if (!queryResult.length) {
-    return Promise.reject(ordersNotFoundError);
+    throw new ApiError(OrderErrorMessage.OrdersNotFound, HttpStatus.NotFound);
   }
 
   return queryResult;
@@ -201,7 +202,7 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
   });
 
   if (!queryResult) {
-    return Promise.reject(orderNotFoundError);
+    throw new ApiError(OrderErrorMessage.OrderNotFound, HttpStatus.NotFound);
   }
 
   const userId = await getOrderUserId(orderId);
@@ -228,7 +229,7 @@ export const getCommentsData = async (accountId: string): Promise<any> => {
   });
 
   if (!queryResult.length) {
-    return Promise.reject(commentsNotFoundError);
+    throw new ApiError(CommentErrorMessage.CommentsNotFound, HttpStatus.NotFound);
   }
 
   const commentsUserNames = await getCommentsUserNames(queryResult);

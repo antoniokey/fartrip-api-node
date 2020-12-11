@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { createAccount } from '../../common/utils/account.utils';
-import { httpNoContent, httpSuccess, handleHttpError } from '../../common/utils/http.utils';
+import { httpNoContent, httpSuccess } from '../../common/utils/http.utils';
 import {
   getEmployees,
   getEmployee,
@@ -12,12 +12,13 @@ import {
   updateEmployeeCar,
   removeEmployeeCar
 } from './employees.utils';
-import { ErrorMesage } from "../../common/models/error.model";
+import { ApiError } from '../../../config/error-handlers';
+import { handleError } from '../../common/utils/error.util';
 
 export const index = (req: Request, res: Response): Promise<any> => {
   return getEmployees()
     .then(data => httpSuccess(res, data))
-    .catch((err: ErrorMesage) => handleHttpError(res, err));
+    .catch((err: ApiError) => handleError(err, res));
 };
 
 export const getOne = (req: Request, res: Response): Promise<any> => {
@@ -25,7 +26,7 @@ export const getOne = (req: Request, res: Response): Promise<any> => {
   
   return getEmployee(id)
     .then(data => httpSuccess(res, data))
-    .catch((err: ErrorMesage) => handleHttpError(res, err));
+    .catch((err: ApiError) => handleError(err, res));
 };
 
 export const getOrders = (req: Request, res: Response): Promise<any> => {
@@ -33,7 +34,7 @@ export const getOrders = (req: Request, res: Response): Promise<any> => {
 
   return getOrdersData(id)
     .then(data => httpSuccess(res, data))
-    .catch((err: ErrorMesage) => handleHttpError(res, err));
+    .catch((err: ApiError) => handleError(err, res));
 };
 
 export const getOrder = (req: Request, res: Response): Promise<any> => {
@@ -41,7 +42,7 @@ export const getOrder = (req: Request, res: Response): Promise<any> => {
 
   return getOrderData(id, orderId)
     .then(data => httpSuccess(res, data))
-    .catch((err: ErrorMesage) => handleHttpError(res, err));
+    .catch((err: ApiError) => handleError(err, res));
 };
 
 export const getComments = (req: Request, res: Response): Promise<any> => {
@@ -49,7 +50,7 @@ export const getComments = (req: Request, res: Response): Promise<any> => {
 
   return getCommentsData(id)
     .then(data => httpSuccess(res, data))
-    .catch((err: ErrorMesage) => handleHttpError(res, err));
+    .catch((err: ApiError) => handleError(err, res));
 };
 
 export const create = (req: Request, res: Response): Promise<any> => {

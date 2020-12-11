@@ -1,9 +1,11 @@
 import db from '../../db/config/db.config';
 import { QueryTypes, Transaction } from 'sequelize';
 import { getOrderRoutePoints } from '../orders/orders.utils';
-import { accountNotFoundError } from '../../common/constants/error-messages/accounts.error-messages';
-import { orderNotFoundError, ordersNotFoundError} from '../../common/constants/error-messages/orders.error-messages';
-import { usersNotFoundError } from '../../common/constants/error-messages/users.error-messages';
+import { ApiError } from '../../../config/error-handlers';
+import { HttpStatus } from '../../common/enums/http.enum';
+import { UserErrorMessage } from '../../common/enums/user.enum';
+import { AccountErrorMessage } from '../../common/enums/account.enum';
+import { OrderErrorMessage } from '../../common/enums/order.enum';
 
 const getOrderEmployeeId = async (orderId: string): Promise<number> => {
   const query = `
@@ -44,7 +46,7 @@ export const getUsers = async (): Promise<object[]> => {
   });
 
   if (!queryResult.length) {
-    return Promise.reject(usersNotFoundError);
+    throw new ApiError(UserErrorMessage.UsersNotFound, HttpStatus.NotFound);
   }
 
   return queryResult;
@@ -62,7 +64,7 @@ export const getUser = async (accoundId: string): Promise<any> => {
   });
 
   if (!queryResult) {
-    return Promise.reject(accountNotFoundError);
+    throw new ApiError(AccountErrorMessage.AccountNotFound, HttpStatus.NotFound);
   }
 
   return queryResult;
@@ -92,7 +94,7 @@ export const getOrdersData = async (id: string): Promise<any> => {
   });
 
   if (!queryResult.length) {
-    return Promise.reject(ordersNotFoundError);
+    throw new ApiError(OrderErrorMessage.OrdersNotFound, HttpStatus.NotFound);
   }
 
   return queryResult;
@@ -120,7 +122,7 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
   });
 
   if (!queryResult) {
-    return Promise.reject(orderNotFoundError);
+    throw new ApiError(OrderErrorMessage.OrderNotFound, HttpStatus.NotFound);
   }
 
   const employeeId = await getOrderEmployeeId(orderId);

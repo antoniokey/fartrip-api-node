@@ -4,8 +4,8 @@ const transport: any = createTransport({
   host: 'smtp.gmail.com',
   secure: true,
   auth: {
-    user: process.env.NODEMAILER_EMAIL,
-    pass: process.env.NODEMAILER_PASSWORD
+    user: process.env.NODEMAILER_EMAIL || '',
+    pass: process.env.NODEMAILER_PASSWORD || ''
   },
 });
 

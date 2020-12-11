@@ -5,11 +5,8 @@ import { getDistanceBetweenPoints, computeCost, computeSpendTime } from './order
 
 const router = express.Router();
 
-export default () => {
-  router
-    .post('/', authorizationMiddleware, getDistanceBetweenPoints, computeCost, computeSpendTime, create)
-    .patch('/:id/status', authorizationMiddleware, updateStatus)
-    .delete('/:id', authorizationMiddleware, remove);
+router.post('/', authorizationMiddleware, getDistanceBetweenPoints, computeCost, computeSpendTime, create);
+router.patch('/:id/status', authorizationMiddleware, updateStatus);
+router.delete('/:id', authorizationMiddleware, remove);
 
-  return router;
-};
+export default router;
