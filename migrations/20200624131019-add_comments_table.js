@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('role',
+    return queryInterface.createTable('comments',
       {
         id: {
           field: 'id',
@@ -11,9 +11,29 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        role: {
-          field: 'role',
-          type: Sequelize.ENUM('USER', 'EMPLOYEE', 'ADMIN'),
+        userId: {
+          field: 'user_id',
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          onDelete: 'CASCADE',
+          references: {
+            key: 'id',
+            model: 'users'
+          }
+        },
+        employeeId: {
+          field: 'employee_id',
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          onDelete: 'CASCADE',
+          references: {
+            key: 'id',
+            model: 'employees'
+          }
+        },
+        text: {
+          field: 'departure',
+          type: Sequelize.STRING,
           allowNull: false
         },
         createdDateTime: {
@@ -34,6 +54,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('role');
+   return queryInterface.dropTable('comments');
   }
 };

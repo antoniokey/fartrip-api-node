@@ -2,13 +2,13 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('order', 'status', {
+    return queryInterface.addColumn('orders', 'status', {
       type: Sequelize.ENUM('new', 'in_progress', 'completed', 'canceled'),
       allowNull: false
     });
   },
 
   down: queryInterface => {
-    return queryInterface.removeColumn('order', 'status');
+    return queryInterface.removeColumn('orders', 'status');
   }
 };

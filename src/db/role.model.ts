@@ -34,7 +34,7 @@ Role.init(
   { sequelize: db.sequelize }
 );
 
-Role.hasMany(Account, { foreignKey: 'roleId' });
+Role.hasMany(Account, { foreignKey: 'roleId', onDelete: 'CASCADE' });
 Account.belongsTo(Role);
 
 export default Role;

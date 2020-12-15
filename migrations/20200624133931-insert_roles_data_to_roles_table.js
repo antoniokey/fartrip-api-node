@@ -8,10 +8,10 @@ const roles = [
 
 module.exports = {
   up: queryInterface => {
-    return queryInterface.bulkInsert('role', roles);
+    return queryInterface.bulkInsert('roles', roles);
   },
 
   down: queryInterface => {
-   return queryInterface.bulkDelete('role');
+   return queryInterface.bulkDelete('roles');
   }
 };

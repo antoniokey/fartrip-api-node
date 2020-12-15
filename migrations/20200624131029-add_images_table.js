@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('comment',
+    return queryInterface.createTable('images',
       {
         id: {
           field: 'id',
@@ -11,26 +11,18 @@ module.exports = {
           primaryKey: true,
           autoIncrement: true
         },
-        userId: {
-          field: 'user_id',
+        accountId: {
+          field: 'account_id',
           type: Sequelize.INTEGER,
           allowNull: false,
+          onDelete: 'CASCADE',
           references: {
             key: 'id',
-            model: 'user'
+            model: 'accounts'
           }
         },
-        employeeId: {
-          field: 'employee_id',
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          references: {
-            key: 'id',
-            model: 'employee'
-          }
-        },
-        text: {
-          field: 'departure',
+        image: {
+          field: 'image',
           type: Sequelize.STRING,
           allowNull: false
         },
@@ -52,6 +44,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-   return queryInterface.dropTable('comment');
+    return queryInterface.dropTable('images');
   }
 };

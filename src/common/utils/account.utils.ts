@@ -7,7 +7,7 @@ import { saveEmployee } from '../../components/employees/employees.utils';
 import { Account } from '../models/account.model';
 import { isPasswordCorrect } from './oauth.utils';
 
-export const createAccount = async (accountData: Account): Promise<void> => {
+export const createAccount = async (accountData: Account): Promise<Account> => {
   const roleId: number = await getRoleId(accountData.role);
   const savedAccount: any = await saveAccountData(roleId, accountData.email, accountData.age, accountData.password, accountData.name);
 
@@ -16,6 +16,8 @@ export const createAccount = async (accountData: Account): Promise<void> => {
   } else {
     await saveEmployee(savedAccount[0], accountData);
   }
+
+  return accountData;
 };
 
 export const getEmployeeIdByAccountId = async (accountId: string): Promise<any> => {

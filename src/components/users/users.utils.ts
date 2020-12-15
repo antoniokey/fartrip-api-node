@@ -52,14 +52,14 @@ export const getUsers = async (): Promise<object[]> => {
   return queryResult;
 };
 
-export const getUser = async (accoundId: string): Promise<any> => {
+export const getUser = async (accountId: string): Promise<any> => {
   const query = `
-    SELECT name, email, age, logo
+    SELECT id, name, email, age, logo
     FROM accounts
-    WHERE id = :accoundId;`;
+    WHERE id = :accountId;`;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
-    replacements: { accoundId: +accoundId },
+    replacements: { accountId: +accountId },
     plain: true
   });
 
