@@ -99,6 +99,8 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
   const orderId = createdOrder[0];
 
   await saveOrderRoutePoints(orderId, pointsBetweenTwoPlaces);
+
+  return order;
 };
 
 export const updateOrderStatus = async (orderId: string, status: string): Promise<any> => {

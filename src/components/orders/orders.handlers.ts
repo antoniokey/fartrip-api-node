@@ -16,14 +16,17 @@ export const create = (req: Request, res: Response): Promise<any> => {
   const { user, employee, order } = req.body;
 
   return createOrder(order, user.accountId, employee.accountId)
-    .then(() => sendEmail(
+    .then(data => {
+      sendEmail(
         process.env.NODEMAILER_EMAIL || '',
         employee.email,
         getEmailSubject(OrderStatus.New, Role.User),
         getEmailText(OrderStatus.New, Role.User)
-      )
-    )
-    .then(() => httpCreated(res));
+      );
+
+      return data;
+    })
+    .then(data => httpCreated(res, data));
 };
 
 export const updateStatus = (req: Request, res: Response): Promise<any> => {
