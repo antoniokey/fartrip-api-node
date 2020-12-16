@@ -7,9 +7,9 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "frtp",
+    "username": "frtp_qa",
     "password": "password",
-    "database": "far_trip_test",
+    "database": "far_trip_qa",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

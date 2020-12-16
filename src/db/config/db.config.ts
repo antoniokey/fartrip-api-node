@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-import { getDatabaseName } from '../utils/db.utils';
+import { getDatabaseName, getDatabaseUsername } from '../utils/db.utils';
 
 dotenv.config();
 
-const sequelize = new Sequelize(getDatabaseName(), process.env.DB_USERNAME || '', process.env.DB_PASSWORD || '', {
+const sequelize = new Sequelize(getDatabaseName(), getDatabaseUsername(), process.env.DB_PASSWORD || '', {
   port: parseInt(process.env.DB_PORT || ''),
     dialect: 'mysql',
     pool: {

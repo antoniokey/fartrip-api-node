@@ -4,7 +4,9 @@ declare namespace NodeJS {
     DEV_DB_NAME: string;
     PROD_DB_NAME: string;
     TEST_DB_NAME: string;
-    DB_USERNAME: string;
+    DEV_DB_USERNAME: string;
+    PROD_DB_USERNAME: string;
+    TEST_DB_USERNAME: string;
     DB_PASSWORD: string;
     DB_PORT: string;
     DB_HOST: string;
