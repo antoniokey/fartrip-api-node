@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
-// import cors from 'cors';
-// import morgan from 'morgan';
+import cors, { CorsRequest } from 'cors';
+import morgan from 'morgan';
 import multer from 'multer';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
@@ -25,10 +25,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(helmet());
-// app.use(morgan('dev'));
+app.use(morgan<Request, Response>('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '300kb' }));
-// app.use(cors({ origin: process.env.DEV_ORIGIN }));
+app.use(cors<CorsRequest>({ origin: process.env.DEV_ORIGIN || '' }));
 app.use(multer().single('logo'));
 
 app.use('/oauth', rateLimitSecurity, OAuthController);
