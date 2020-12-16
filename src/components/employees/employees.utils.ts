@@ -12,9 +12,9 @@ import { CommentErrorMessage } from '../../common/enums/comment.enum';
 
 const getOrderUserId = async (orderId: string): Promise<number> => {
   const query = `
-    SELECT far_trip.orders.user_id
-    FROM far_trip.orders
-    WHERE far_trip.orders.id = :orderId;
+    SELECT orders.user_id
+    FROM orders
+    WHERE orders.id = :orderId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -43,10 +43,10 @@ const getOrderUser = async (userId: number): Promise<any> => {
 
 const getCommentsUserNames = (comments: any[]) => {
   const query = `
-    SELECT far_trip.accounts.name
-    FROM far_trip.users
-    INNER JOIN far_trip.accounts ON far_trip.accounts.id = far_trip.users.account_id
-    WHERE far_trip.users.id = :userId
+    SELECT accounts.name
+    FROM users
+    INNER JOIN accounts ON accounts.id = users.account_id
+    WHERE users.id = :userId
   `;
   const queryPromises: any[] = [];
 
@@ -65,13 +65,13 @@ const getCommentsUserNames = (comments: any[]) => {
 const getCommentById = async (commentId: number): Promise<any> => {
   const query = `
     SELECT
-      far_trip.accounts.name AS userName,
-      far_trip.comments.comment,
-      far_trip.comments.created_date_time AS createdDate
-    FROM far_trip.comments
-    INNER JOIN far_trip.users ON far_trip.users.id = far_trip.comments.user_id
-    INNER JOIN far_trip.accounts ON far_trip.accounts.id = far_trip.users.account_id
-    WHERE far_trip.comments.id = :commentId;
+      accounts.name AS userName,
+      comments.comment,
+      comments.created_date_time AS createdDate
+    FROM comments
+    INNER JOIN users ON users.id = comments.user_id
+    INNER JOIN accounts ON accounts.id = users.account_id
+    WHERE comments.id = :commentId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -153,20 +153,20 @@ export const getEmployee = async (accountId: any): Promise<any> => {
 export const getOrdersData = async (id: string): Promise<any> => {
   const query = `
     SELECT
-      far_trip.accounts.name,
-      far_trip.orders.id,
-      far_trip.orders.user_id AS userId,
-      far_trip.orders.departure,
-      far_trip.orders.destination,
-      far_trip.orders.distance,
-      far_trip.orders.cost,
-      far_trip.orders.status,
-      far_trip.orders.spend_time AS spendTime
-    FROM far_trip.employees
-    INNER JOIN far_trip.accounts ON far_trip.employees.account_id = far_trip.accounts.id
-    INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employees.id
-    WHERE far_trip.accounts.id = :accountId
-    ORDER BY far_trip.orders.status;
+      accounts.name,
+      orders.id,
+      orders.user_id AS userId,
+      orders.departure,
+      orders.destination,
+      orders.distance,
+      orders.cost,
+      orders.status,
+      orders.spend_time AS spendTime
+    FROM employees
+    INNER JOIN accounts ON employees.account_id = accounts.id
+    INNER JOIN orders ON orders.employee_id = employees.id
+    WHERE accounts.id = :accountId
+    ORDER BY orders.status;
   `;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -183,17 +183,17 @@ export const getOrdersData = async (id: string): Promise<any> => {
 export const getOrderData = async (accountId: string, orderId: string): Promise<any> => {
   const query = `
     SELECT
-      far_trip.orders.id,
-      far_trip.orders.departure,
-      far_trip.orders.destination,
-      far_trip.orders.distance,
-      far_trip.orders.cost,
-      far_trip.orders.status,
-      far_trip.orders.spend_time AS spendTime
-    FROM far_trip.employees
-    INNER JOIN far_trip.accounts ON far_trip.employees.account_id = far_trip.accounts.id
-    INNER JOIN far_trip.orders ON far_trip.orders.employee_id = far_trip.employees.id
-    WHERE far_trip.accounts.id = :accountId AND far_trip.orders.id = :orderId;
+      orders.id,
+      orders.departure,
+      orders.destination,
+      orders.distance,
+      orders.cost,
+      orders.status,
+      orders.spend_time AS spendTime
+    FROM employees
+    INNER JOIN accounts ON employees.account_id = accounts.id
+    INNER JOIN orders ON orders.employee_id = employees.id
+    WHERE accounts.id = :accountId AND orders.id = :orderId;
   `;
   const queryResult: any = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,
@@ -215,13 +215,13 @@ export const getOrderData = async (accountId: string, orderId: string): Promise<
 export const getCommentsData = async (accountId: string): Promise<any> => {
   const query = `
     SELECT
-      far_trip.comments.id,
-      far_trip.comments.comment,
-      far_trip.comments.created_date_time AS createdDate,
-      far_trip.comments.user_id AS userId
-    FROM far_trip.employees
-    INNER JOIN far_trip.comments ON far_trip.employees.id = far_trip.comments.employee_id
-    WHERE far_trip.employees.account_id = :accountId;
+      comments.id,
+      comments.comment,
+      comments.created_date_time AS createdDate,
+      comments.user_id AS userId
+    FROM employees
+    INNER JOIN comments ON employees.id = comments.employee_id
+    WHERE employees.account_id = :accountId;
   `;
   const queryResult = await db.sequelize.query(query, {
     type: QueryTypes.SELECT,

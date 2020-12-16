@@ -22,6 +22,10 @@ export const generateAccessToken = (): string => {
   return jwt.sign(getAccessTokenPayload(), process.env.JWT_SECRET || 'secret');
 };
 
+export const generateExpiredAccessToken = (): string => {
+  return jwt.sign({}, process.env.JWT_SECRET || 'secret', { expiresIn: '-5s' });
+};
+
 export const generateRefreshToken = (): string => {
   return jwt.sign(getRefreshTokenPayload(), process.env.JWT_SECRET || 'secret');
 };

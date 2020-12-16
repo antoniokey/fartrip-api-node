@@ -1,7 +1,9 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     DEV_ORIGIN: string;
-    DB_NAME: string;
+    DEV_DB_NAME: string;
+    PROD_DB_NAME: string;
+    TEST_DB_NAME: string;
     DB_USERNAME: string;
     DB_PASSWORD: string;
     DB_PORT: string;
@@ -18,5 +20,6 @@ declare namespace NodeJS {
     NODEMAILER_EMAIL: string;
     NODEMAILER_PASSWORD: string;
     MAP_ROUTE_URL: string;
+    NODE_ENV: string;
   }
 }

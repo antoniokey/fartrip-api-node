@@ -72,7 +72,7 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
   const employeeId = await getEmployeeIdByAccountId(employeeAccountId);
   const pointsBetweenTwoPlaces = await getPointsBetweenTwoPlaces(order.departure, order.destination);
   const query = `
-    INSERT INTO far_trip.orders
+    INSERT INTO orders
       (user_id, employee_id, departure, destination, distance, cost, spend_time, created_date_time, modified_date_time, status, time, date, user_notes)
     VALUES (?);
   `;

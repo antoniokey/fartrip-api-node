@@ -28,7 +28,7 @@ app.use(helmet());
 app.use(morgan<Request, Response>('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '300kb' }));
-app.use(cors<CorsRequest>({ origin: process.env.DEV_ORIGIN || '' }));
+app.use(cors<CorsRequest>({ origin: process.env.DEV_ORIGIN }));
 app.use(multer().single('logo'));
 
 app.use('/oauth', rateLimitSecurity, OAuthController);

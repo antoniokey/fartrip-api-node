@@ -25,6 +25,7 @@ describe('OAuth Controller', () => {
     
     expect(status).toBe(HttpStatus.Success);
     expectedAuthorizedInfo.forEach(infoItem => expect(responseAuthorizedInfo.includes(infoItem)).toBeTruthy());
+
     done();
   });
 
@@ -35,6 +36,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.BadRequest);
     expect(body.status).toBe(HttpStatus.BadRequest);
     expect(body.message).toBe(OAuthErrorMessage.MissingGrantType);
+
     done();
   });
 
@@ -46,6 +48,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.BadRequest);
     expect(body.status).toBe(HttpStatus.BadRequest);
     expect(body.message).toBe(OAuthErrorMessage.IncorrectGrantType);
+
     done();
   });
 
@@ -56,6 +59,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.BadRequest);
     expect(body.status).toBe(HttpStatus.BadRequest);
     expect(body.message).toBe(OAuthErrorMessage.MissingAuthHeader);
+
     done();
   });
 
@@ -66,6 +70,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.BadRequest);
     expect(body.status).toBe(HttpStatus.BadRequest);
     expect(body.message).toBe(OAuthErrorMessage.IncorrectAuthHeader);
+
     done();
   });
 
@@ -76,6 +81,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.NotFound);
     expect(body.status).toBe(HttpStatus.NotFound);
     expect(body.message).toBe(OAuthErrorMessage.UserNotFound);
+
     done();
   });
 
@@ -86,6 +92,7 @@ describe('OAuth Controller', () => {
     expect(status).toBe(HttpStatus.BadRequest);
     expect(body.status).toBe(HttpStatus.BadRequest);
     expect(body.message).toBe(OAuthErrorMessage.MissingCredentials);
+
     done();
   });
 
