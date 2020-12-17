@@ -1,6 +1,7 @@
 import { createTransport } from 'nodemailer';
+import Mail from 'nodemailer/lib/mailer';
 
-const transport: any = createTransport({
+const transport: Mail = createTransport({
   host: 'smtp.gmail.com',
   secure: true,
   auth: {

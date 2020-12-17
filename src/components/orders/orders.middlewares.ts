@@ -5,7 +5,7 @@ import { ExternalApi } from '../../common/enums/external-api.enum';
 export const getDistanceBetweenPoints = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
   const { departure, destination } = req.body.order;
 
-  request(`${ExternalApi.Distance}${departure}|${destination}`, (err, response, body) => {
+  request(`${ExternalApi.Distance}?stops=${departure}|${destination}`, (err, response, body) => {
     const distance = JSON.parse(body).distance;
     req.body.order.distance = distance;
 

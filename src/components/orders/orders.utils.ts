@@ -91,7 +91,7 @@ export const createOrder = async (order: any, userAccountId: string, employeeAcc
         new Date(),
         OrderStatus.New,
         order.time,
-        order.date,
+        new Date(order.date),
         order.userNotes
       ]
     ]
