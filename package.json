@@ -1,7 +1,10 @@
 {
   "name": "fartrip-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "FarTrip application",
+  "repository": {
+    "url": "https://github.com/progTonee/fartrip-api"
+  },
   "main": "server.ts",
   "scripts": {
     "build": "tsc",
